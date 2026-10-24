@@ -1,13 +1,61 @@
 {
   "extraKnownMarketplaces": {
     "ecc": {
-      "source": {
-        "source": "github",
-        "repo": "affaan-m/everything-claude-code"
-      }
+      "source": { "source": "github", "repo": "affaan-m/everything-claude-code" }
+    },
+    "claude-plugins-official": {
+      "source": { "source": "github", "repo": "anthropics/claude-plugins-official" }
+    },
+    "anthropic-agent-skills": {
+      "source": { "source": "github", "repo": "anthropics/skills" }
+    },
+    "claude-code-workflows": {
+      "source": { "source": "github", "repo": "wshobson/agents" }
+    },
+    "voltagent-subagents": {
+      "source": { "source": "github", "repo": "VoltAgent/awesome-claude-code-subagents" }
     }
   },
   "enabledPlugins": {
-    "ecc@ecc": true
+    "ecc@ecc": true,
+
+    "frontend-design@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "pr-review-toolkit@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "security-guidance@claude-plugins-official": true,
+    "commit-commands@claude-plugins-official": true,
+    "modern-web-guidance@claude-plugins-official": true,
+    "ui-theme-designer@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "context7@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true,
+    "chrome-devtools-mcp@claude-plugins-official": true,
+
+    "example-skills@anthropic-agent-skills": true,
+    "document-skills@anthropic-agent-skills": true,
+
+    "frontend-mobile-development@claude-code-workflows": true,
+    "full-stack-orchestration@claude-code-workflows": true,
+    "backend-development@claude-code-workflows": true,
+    "javascript-typescript@claude-code-workflows": true,
+    "ui-design@claude-code-workflows": true,
+    "multi-platform-apps@claude-code-workflows": true,
+    "api-scaffolding@claude-code-workflows": true,
+    "database-design@claude-code-workflows": true,
+    "tdd-workflows@claude-code-workflows": true,
+    "comprehensive-review@claude-code-workflows": true,
+    "accessibility-compliance@claude-code-workflows": true,
+    "seo-technical-optimization@claude-code-workflows": true,
+    "application-performance@claude-code-workflows": true,
+    "frontend-mobile-security@claude-code-workflows": true,
+    "brand-landingpage@claude-code-workflows": true,
+    "debugging-toolkit@claude-code-workflows": true,
+
+    "voltagent-core-dev@voltagent-subagents": true,
+    "voltagent-lang@voltagent-subagents": true,
+    "voltagent-qa-sec@voltagent-subagents": true
   }
 }
