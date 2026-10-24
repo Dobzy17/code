@@ -28,11 +28,16 @@
     "security-guidance@claude-plugins-official": true,
     "commit-commands@claude-plugins-official": true,
     "modern-web-guidance@claude-plugins-official": true,
-    "ui-theme-designer@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true,
     "context7@claude-plugins-official": true,
     "playwright@claude-plugins-official": true,
     "chrome-devtools-mcp@claude-plugins-official": true,
+
+    "vercel@claude-plugins-official": true,
+    "supabase@claude-plugins-official": true,
+    "stripe@claude-plugins-official": true,
+    "figma@claude-plugins-official": true,
+    "sentry@claude-plugins-official": true,
 
     "example-skills@anthropic-agent-skills": true,
     "document-skills@anthropic-agent-skills": true,
