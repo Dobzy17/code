@@ -1,0 +1,5 @@
+# Dépendances Python des skills (bi-measure-builder, design-export-repair)
+pandas
+pymupdf
+python-pptx
+playwright==1.63.0
