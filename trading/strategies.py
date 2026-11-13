@@ -51,3 +51,33 @@ STRATEGIES = {
     "trend_sma": trend_sma,
     "dual_momentum": dual_momentum,
 }
+
+
+def donchian_ensemble(prices: pd.DataFrame,
+                      lookbacks: tuple[int, ...] = (10, 20, 30, 60, 90, 150, 250, 360)) -> pd.DataFrame:
+    """Ensemble de cassures de Donchian (inspiré de Zarattini, Pagani & Barbon, 2025,
+    « Catching Crypto Trends ») : pour chaque durée L, on entre quand le cours fait
+    un plus haut de L jours, on sort quand il fait un plus bas de L/2 jours.
+    L'exposition est la moyenne des L signaux (0 à 1) : pas de réglage unique à « deviner »."""
+    out = pd.DataFrame(0.0, index=prices.index, columns=prices.columns)
+    for col in prices.columns:
+        s = prices[col]
+        votes = []
+        for L in lookbacks:
+            hi = s.rolling(L).max()
+            lo = s.rolling(max(L // 2, 2)).min()
+            state = pd.Series(float("nan"), index=s.index)
+            state[s >= hi] = 1.0
+            state[s <= lo] = 0.0
+            votes.append(state.ffill().fillna(0.0))
+        out[col] = pd.concat(votes, axis=1).mean(axis=1)
+    n = prices.notna().sum(axis=1).clip(lower=1)
+    return out.div(n, axis=0)
+
+
+def vol_target(weights: pd.DataFrame, prices: pd.DataFrame, target: float = 0.25,
+               window: int = 90, periods: int = 365) -> pd.DataFrame:
+    """Réduit chaque position quand l'actif devient très volatil (jamais d'effet de levier)."""
+    vol = prices.pct_change().rolling(window).std() * periods ** 0.5
+    scale = (target / vol).clip(upper=1.0).fillna(0.0)
+    return weights * scale
