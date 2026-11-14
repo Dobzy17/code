@@ -30,3 +30,11 @@ def test_trend_goes_to_cash_below_sma():
     idx = pd.date_range("2024-01-01", periods=5, freq="D")
     p = pd.DataFrame({"A": [5, 4, 3, 2, 1]}, index=idx, dtype=float)
     assert st.trend_sma(p, 2)["A"].iloc[-1] == 0
+
+
+def test_clean_spikes_removes_fake_jump():
+    from data import clean_spikes
+    idx = pd.date_range("2024-01-01", periods=4, freq="D")
+    p = pd.DataFrame({"A": [1.0, 5.0, 1.0, 1.1]}, index=idx)
+    out, fixed = clean_spikes(p)
+    assert out["A"].tolist() == [1.0, 1.0, 1.0, 1.1] and fixed == {"A": 1}

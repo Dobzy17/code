@@ -22,7 +22,31 @@ On ajoute une ligne à chaque nouveau test, on n'efface jamais une leçon qui d�
 7. **Même la meilleure version perd de l'argent environ 1 année sur 5** (simulation de 2 000 années possibles).
    Une année négative ne prouvera pas que la stratégie est cassée.
 
+## 14 novembre 2026 — sans biais du survivant (`training_survivor_results.md`)
+
+Paniers = les ~20 premières cryptos AU DÉBUT de la période (début 2018 : 15 sur 19 sont en perte
+aujourd'hui ; début 2021 : 12 sur 20), y compris celles qui ont disparu.
+
+8. **Le suivi de tendance NE protège PAS un panier d'altcoins avec une simple moyenne mobile.**
+   Panier 2018 + SMA150 : +3,8 %/an, perte max −81 %. C'est pire que de garder BTC seul (+19,9 %/an).
+   Les altcoins meurent lentement et la moyenne mobile se fait piéger à chaque faux rebond.
+9. **Le meilleur résultat, c'est BTC seul avec la tendance, et c'est stable sur les deux départs :**
+   +33,2 %/an (perte max −57 %) depuis 2018, et +25,1 %/an (perte max −45 %) depuis 2021.
+10. **La leçon 5 était bien gonflée par le biais du survivant.** « Donchian + volatilité cible, 14 cryptos » :
+    Sharpe 1,14 avec les survivants, contre 0,83 (2018) et 0,92 (2021) avec les vrais paniers.
+    Ça reste correct (pertes max d'environ −13 %), mais ce n'est pas meilleur que BTC seul.
+11. **Les cassures combinées (Donchian) résistent bien mieux que la moyenne mobile sur les altcoins**
+    (panier 2018 : +16,7 %/an contre +3,8 %/an). Si un jour on trade des altcoins, ce sera avec cette méthode, jamais avec la SMA.
+12. **Les données gratuites de Yahoo contiennent de fausses valeurs** (BTG, ICX : bonds de +300 à +3 000 % en un jour
+    qui retombent le lendemain). Ces erreurs avaient multiplié par 12 un backtest. Elles sont maintenant neutralisées
+    (`clean_spikes`, test unitaire ajouté). Ce nettoyage prudent efface aussi quelques vrais bonds (DOGE en janvier 2021) :
+    les paniers 2021 sont donc légèrement sous-estimés.
+
+**Proposition (non appliquée, en attente de ton accord) :** faire passer le satellite crypto du robot de BTC+ETH à
+BTC seul, ou à BTC majoritaire. À confirmer d'abord par le test ci-dessous.
+
 ## À tester ensuite
-- Un univers crypto sans biais du survivant (inclure les cryptos mortes, comme LUNA ou FTT).
+- BTC seul contre BTC+ETH dans le satellite du robot (même période, mêmes frais, test glissant) : faut-il garder ETH ?
+- Vérifier les cours Yahoo avec une deuxième source (Kraken ou Binance) avant tout argent réel : écart quotidien sur BTC et ETH.
 - Un test glissant : choisir les réglages sur 3 ans, tester sur l'année suivante, et recommencer chaque année.
 - Le comportement en marché sans tendance (2025-2026 : toutes les stratégies légèrement négatives).

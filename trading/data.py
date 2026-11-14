@@ -43,3 +43,21 @@ def load_prices(tickers: list[str], start: str = "2010-01-01", refresh: bool = F
         print(f"[data] ATTENTION : téléchargement impossible ({last_err}), cache ancien utilisé")
         return pd.read_csv(key, index_col=0, parse_dates=True)[tickers]
     raise RuntimeError(f"Impossible de charger {tickers} : {last_err}")
+
+
+def clean_spikes(prices: pd.DataFrame, max_jump: float = 3.0) -> tuple[pd.DataFrame, dict]:
+    """Neutralise les bonds de plus de +300 % en un jour, presque toujours des erreurs de données
+    sur les petites cryptos. Prudent : on garde le cours de la veille (le gain est effacé, jamais créé).
+    Renvoie les prix nettoyés et le nombre de jours corrigés par actif."""
+    p = prices.copy()
+    fixed: dict[str, int] = {}
+    for col in p.columns:
+        for _ in range(50):
+            r = p[col] / p[col].ffill().shift(1) - 1
+            bad = r > max_jump
+            if not bad.any():
+                break
+            fixed[col] = fixed.get(col, 0) + int(bad.sum())
+            p.loc[bad, col] = float("nan")
+            p[col] = p[col].ffill()
+    return p, fixed
