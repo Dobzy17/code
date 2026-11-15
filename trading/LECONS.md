@@ -42,11 +42,26 @@ aujourd'hui ; début 2021 : 12 sur 20), y compris celles qui ont disparu.
     (`clean_spikes`, test unitaire ajouté). Ce nettoyage prudent efface aussi quelques vrais bonds (DOGE en janvier 2021) :
     les paniers 2021 sont donc légèrement sous-estimés.
 
-**Proposition (non appliquée, en attente de ton accord) :** faire passer le satellite crypto du robot de BTC+ETH à
-BTC seul, ou à BTC majoritaire. À confirmer d'abord par le test ci-dessous.
+**Proposition du 14/11 (retirée le 15/11, voir leçon 13) :** passer le satellite à BTC seul.
+
+## 15 novembre 2026 — BTC seul ou BTC+ETH, et test glissant (`training_sleeve_results.md`)
+
+Portefeuille complet testé (70 % ACWI + 30 % crypto avec tendance), frais 0,20 %.
+
+13. **Retirer ETH ne change presque rien : je retire ma proposition d'hier.**
+    Depuis 2021 : Sharpe 0,99 avec BTC seul, contre 1,04 avec BTC+ETH ; même perte max (≈ −28 %).
+    BTC seul ne gagne que 5 années sur 9. La leçon 9 opposait BTC à un panier de 20 altcoins ; ETH, lui,
+    n'en est pas un, et il apporte un peu de diversification. **Le robot reste tel quel.**
+13 bis. Le test fait sur un satellite seul (leçon 9) ne se transpose pas au portefeuille complet : dans le
+    portefeuille, l'ETF monde (70 %) écrase les écarts. Il faut toujours tester le portefeuille qu'on détient réellement.
+14. **Ré-optimiser le réglage chaque année n'aide pas, et c'est même parfois pire.** Test glissant 2021+ :
+    BTC seul passe d'un Sharpe de 0,99 (fixe SMA150) à 0,85 (réglage ré-choisi chaque année), avec une perte max de −39 % au lieu de −29 % ;
+    pour BTC+ETH, c'est identique (1,05 contre 1,04). Le « meilleur réglage du passé » change presque chaque année
+    (SMA50, 150 ou 200). **Règle retenue : on garde SMA150 fixe, on ne ré-optimise jamais sur les résultats récents.**
+15. **La première semaine réelle correspond exactement au calcul.** −0,73 % = baisse d'ACWI (−0,84 % × 70 %)
+    + frais d'achat (0,14 %). Le robot fait ce que le modèle dit.
 
 ## À tester ensuite
-- BTC seul contre BTC+ETH dans le satellite du robot (même période, mêmes frais, test glissant) : faut-il garder ETH ?
 - Vérifier les cours Yahoo avec une deuxième source (Kraken ou Binance) avant tout argent réel : écart quotidien sur BTC et ETH.
-- Un test glissant : choisir les réglages sur 3 ans, tester sur l'année suivante, et recommencer chaque année.
-- Le comportement en marché sans tendance (2025-2026 : toutes les stratégies légèrement négatives).
+- Le comportement en marché sans tendance (2025-2026 : satellite seul légèrement négatif) : combien de faux signaux, et à quel coût ?
+- Scénario catastrophe : le stablecoin de refuge (USDC) perd sa parité de 10 % pendant que le robot est en cash : impact sur le portefeuille ?
