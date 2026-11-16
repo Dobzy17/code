@@ -61,7 +61,22 @@ Portefeuille complet testé (70 % ACWI + 30 % crypto avec tendance), frais 0,20 
 15. **La première semaine réelle correspond exactement au calcul.** −0,73 % = baisse d'ACWI (−0,84 % × 70 %)
     + frais d'achat (0,14 %). Le robot fait ce que le modèle dit.
 
+## 16 novembre 2026 — fiabilité des données (`training_datacheck_results.md`)
+
+16. **Sur BTC et ETH, les cours Yahoo sont fiables.** Comparés à Kraken sur 719 jours : écart médian de 0,02 %,
+    écart max de 0,5 %, aucun jour au-delà de 1 %, et **0 décision différente** du robot sur 570 jours.
+    Contre Binance (en USDT) : 1 seule décision différente sur 849 jours. Les erreurs de la leçon 12 touchent
+    les petites cryptos, pas BTC ni ETH.
+17. **Le vrai problème, c'est l'heure, pas la qualité.** À 3h13, Yahoo n'a pas encore la clôture de la veille,
+    mais donne déjà le cours du jour en cours (vieux de 2 h). Le robot décide donc sur un cours
+    intrajournalier, alors que le backtest décide sur des clôtures. Avec l'écart actuel (BTC 11 % sous sa moyenne),
+    ça ne change rien. Mais un jour où le cours est tout près de la moyenne, la décision pourrait différer du backtest.
+
+**Proposition (non appliquée, en attente de ton accord) :** pour la crypto, le robot prendrait les clôtures
+**Kraken** (bougies terminées) au lieu de Yahoo, avec Yahoo en secours. C'est cohérent avec le passage au réel,
+puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne changent pas, seulement la source des cours.
+
 ## À tester ensuite
-- Vérifier les cours Yahoo avec une deuxième source (Kraken ou Binance) avant tout argent réel : écart quotidien sur BTC et ETH.
 - Le comportement en marché sans tendance (2025-2026 : satellite seul légèrement négatif) : combien de faux signaux, et à quel coût ?
+- Combien de fois, depuis 2018, le cours de BTC/ETH était à moins de 2 % de sa moyenne 150 j (zone où la source et l'heure du cours peuvent inverser la décision) ?
 - Scénario catastrophe : le stablecoin de refuge (USDC) perd sa parité de 10 % pendant que le robot est en cash : impact sur le portefeuille ?
