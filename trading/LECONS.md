@@ -76,7 +76,22 @@ Portefeuille complet testé (70 % ACWI + 30 % crypto avec tendance), frais 0,20 
 **Kraken** (bougies terminées) au lieu de Yahoo, avec Yahoo en secours. C'est cohérent avec le passage au réel,
 puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne changent pas, seulement la source des cours.
 
+## 17 novembre 2026 — faux signaux en marché sans tendance (`training_whipsaw_results.md`)
+
+18. **La règle perd sur environ 2 trades sur 3, et c'est normal.** BTC : 10 gagnants sur 33 trades depuis mi-2018.
+    ETH : 13 sur 34. Mais un gagnant moyen rapporte +72 % (BTC) ou +110 % (ETH), alors qu'un perdant moyen ne coûte que −5 à −7 %.
+19. **Tout le profit vient de quelques grandes tendances.** Les 3 meilleurs trades multiplient le capital
+    par 22 (BTC) ou 32 (ETH) ; tous les autres trades ensemble font PERDRE (×0,74 et ×0,64).
+    Conséquence pratique : **ne jamais couper la règle après une série de pertes**, sinon on rate le trade
+    qui paie tout. C'est la principale cause d'échec des humains avec ce type de stratégie.
+20. **Les faux signaux coûtent cher en marché sans tendance.** Trades de moins de 30 jours : 22 pour BTC
+    (19 perdants, coût cumulé −55 %) et 21 pour ETH (−59 %). 2025-2026 sont typiques : BTC a fait 7 trades
+    en 2025-26, dont 8 faux signaux sur 10, pour un résultat nul à −15 %.
+21. **Yahoo est parfois en retard d'un jour de bourse entier** (clôture ACWI du lundi 16/11 absente le mardi à 3h13,
+    même en téléchargement séparé). Ça confirme la condition 6 : il faut une source fiable à l'heure d'exécution.
+
 ## À tester ensuite
-- Le comportement en marché sans tendance (2025-2026 : satellite seul légèrement négatif) : combien de faux signaux, et à quel coût ?
-- Combien de fois, depuis 2018, le cours de BTC/ETH était à moins de 2 % de sa moyenne 150 j (zone où la source et l'heure du cours peuvent inverser la décision) ?
+- Réduire les faux signaux avec une zone tampon : acheter seulement si le cours dépasse la moyenne de X %, vendre seulement
+  s'il passe X % en dessous, avec X = 0, 1, 2, 3, 5 %. On ne retient X que si TOUTE la plage améliore le résultat
+  (pas de choix du meilleur X), et on vérifie avant et après 2021. Sert aussi à mesurer la zone fragile de la leçon 17.
 - Scénario catastrophe : le stablecoin de refuge (USDC) perd sa parité de 10 % pendant que le robot est en cash : impact sur le portefeuille ?
