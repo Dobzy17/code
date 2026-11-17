@@ -90,8 +90,31 @@ puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne 
 21. **Yahoo est parfois en retard d'un jour de bourse entier** (clôture ACWI du lundi 16/11 absente le mardi à 3h13,
     même en téléchargement séparé). Ça confirme la condition 6 : il faut une source fiable à l'heure d'exécution.
 
+## 17 novembre 2026 (journée, à la demande) — zone tampon, multi-actifs, module réel
+
+22. **Une zone tampon ne rapporte pas plus, mais elle divise les ordres par deux.** Avec une zone de 0 à 5 %, le Sharpe reste
+    entre 1,00 et 1,04 après 2021 (à chaque fois, aucune amélioration de rendement), mais le nombre d'ordres crypto passe de 136
+    (sans zone) à 70 (zone de 2 %) puis 48 (zone de 5 %). Avec la zone de 3 %, la perte max passe de −28,0 % à −25,8 %.
+    **Proposition (en attente de ton accord) : une zone de 3 %**. C'est moins d'ordres, donc moins de frais réels, moins de lignes
+    à déclarer, et moins de sensibilité à l'heure du cours (le cours n'est à moins de 2 % de sa moyenne
+    que 4 à 5 % des jours).
+23. **Le suivi de tendance « des fonds pros », version particulier (8 ETF, achat seulement), ne vaut pas le coup.**
+    Depuis 2016 : +3 à +4 %/an (Sharpe 0,48 à 0,60), contre +9,4 %/an (Sharpe 0,90) pour un simple 60/40.
+    Il protège en crise (2008 : −1 à −7 % au lieu de −17 % ; 2022 : −6 % au lieu de −16 %), mais il rate trop de hausse.
+    L'avantage documenté par les études vient des contrats à terme, de la vente à découvert et de plus de 50 marchés,
+    ce qu'un particulier ne reproduit pas avec 8 ETF. **Le cœur du robot reste sans règle.**
+    Limite du test : le cash est compté à 0 %, alors qu'il rapporte environ 3-4 % depuis 2023. Ça défavorise un peu les versions avec tendance.
+24. **En passant : le 60/40 a battu 100 % ACWI en rendement ajusté du risque** (Sharpe 0,90 contre 0,75 depuis 2016 ;
+    perte max −21 % contre −34 %). Si tu crains les fortes baisses, une part d'obligations dans le cœur est une option
+    simple. C'est une question de goût du risque, à toi de choisir.
+25. **Le module argent réel existe, en mode proposition** (`live/propose.py`). Il prend les clôtures Kraken terminées
+    (la bougie de la veille est bien là à l'heure du robot, contrairement à Yahoo) et applique 5 garde-fous testés :
+    données trop vieilles, mouvement suspect de plus de 40 %, historique trop court, coupe-circuit, plafonds de 500 € par ordre et 1 000 € par jour.
+    Il ne contient **aucun code d'envoi d'ordre** : il écrit une proposition à valider à la main.
+
 ## À tester ensuite
-- Réduire les faux signaux avec une zone tampon : acheter seulement si le cours dépasse la moyenne de X %, vendre seulement
-  s'il passe X % en dessous, avec X = 0, 1, 2, 3, 5 %. On ne retient X que si TOUTE la plage améliore le résultat
-  (pas de choix du meilleur X), et on vérifie avant et après 2021. Sert aussi à mesurer la zone fragile de la leçon 17.
+- Compter le rendement du cash (taux monétaire ou fonds monétaire) dans tous les backtests : les stratégies avec tendance,
+  souvent en cash, sont aujourd'hui sous-estimées.
+- Comparer chaque nuit la proposition réelle (Kraken, EUR) et la décision du robot fictif (Yahoo, USD) : mêmes décisions ?
+- Simulation après impôts : PEA contre compte-titres pour le cœur, et effet du report d'impôt via stablecoin pour la crypto.
 - Scénario catastrophe : le stablecoin de refuge (USDC) perd sa parité de 10 % pendant que le robot est en cash : impact sur le portefeuille ?

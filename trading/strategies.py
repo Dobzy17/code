@@ -81,3 +81,15 @@ def vol_target(weights: pd.DataFrame, prices: pd.DataFrame, target: float = 0.25
     vol = prices.pct_change().rolling(window).std() * periods ** 0.5
     scale = (target / vol).clip(upper=1.0).fillna(0.0)
     return weights * scale
+
+
+def trend_band(prices: pd.DataFrame, window: int = 150, band: float = 0.0) -> pd.DataFrame:
+    """Comme trend_sma, avec une zone tampon : on achète si le cours dépasse la moyenne de `band`,
+    on vend s'il passe `band` en dessous ; entre les deux, on garde la position précédente."""
+    sma = prices.rolling(window).mean()
+    state = pd.DataFrame(float("nan"), index=prices.index, columns=prices.columns)
+    state[prices > sma * (1 + band)] = 1.0
+    state[prices < sma * (1 - band)] = 0.0
+    on = state.ffill().fillna(0.0)
+    n_assets = prices.notna().sum(axis=1).clip(lower=1)
+    return on.div(n_assets, axis=0)
