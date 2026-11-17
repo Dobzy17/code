@@ -85,8 +85,8 @@ puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne 
     Conséquence pratique : **ne jamais couper la règle après une série de pertes**, sinon on rate le trade
     qui paie tout. C'est la principale cause d'échec des humains avec ce type de stratégie.
 20. **Les faux signaux coûtent cher en marché sans tendance.** Trades de moins de 30 jours : 22 pour BTC
-    (19 perdants, coût cumulé −55 %) et 21 pour ETH (−59 %). 2025-2026 sont typiques : BTC a fait 7 trades
-    en 2025-26, dont 8 faux signaux sur 10, pour un résultat nul à −15 %.
+    (19 perdants, coût cumulé −55 %) et 21 pour ETH (−59 %). 2025-2026 sont typiques : BTC a fait 10 trades
+    en 2025-26, dont 8 faux signaux, pour un résultat de 0 % (2025) puis −15 % (2026).
 21. **Yahoo est parfois en retard d'un jour de bourse entier** (clôture ACWI du lundi 16/11 absente le mardi à 3h13,
     même en téléchargement séparé). Ça confirme la condition 6 : il faut une source fiable à l'heure d'exécution.
 
