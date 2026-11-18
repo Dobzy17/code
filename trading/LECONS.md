@@ -127,5 +127,22 @@ puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne 
     sont d'accord le 17 et le 18/11 (BTC et ETH sous leur moyenne). Tout désaccord sera signalé.
 
 ## À tester ensuite
+
+### Bourse (actions, ETF)
+- Momentum sectoriel : chaque mois, détenir les 3 ETF sectoriels US (XLK, XLF, XLE, XLV…) les plus forts sur 6 à 12 mois.
+  Est-ce que ça bat le S&P 500 après frais, avant et après 2016 ?
+- Facteurs « reconnus » via ETF : momentum (MTUM), qualité (QUAL), faible volatilité (USMV), value (VLUE), petites capitalisations (IWM)
+  contre le marché (SPY). Lesquels ont tenu leurs promesses depuis leur lancement ?
+- Dérive après résultats (PEAD) : les actions qui battent fortement les attentes continuent-elles à monter les semaines suivantes ?
+  Utiliser le skill `pead-screener` du dépôt si la clé FMP gratuite le permet, sinon les données Yahoo.
+- Dividendes en croissance (skill `dividend-growth-pullback-screener`) contre un ETF dividendes (SCHD, VIG) : gagne-t-on quelque chose à choisir soi-même ?
+- Saisonnalité (« Sell in May », effet de fin de mois) : réel ou disparu depuis sa publication ?
+
+### Autres marchés
+- Or et matières premières : l'or protège-t-il vraiment un portefeuille en crise (2008, 2020, 2022) ? Quel poids optimal sans regarder le futur ?
+- Devises : le « carry trade » (pays à taux élevés contre pays à taux bas) via ETF ou paires de change de Yahoo : rentable pour un particulier ?
+- Options : vendre des calls couverts (ETF de type QYLD, JEPI) contre détenir l'indice : le revenu compense-t-il la hausse perdue ?
+
+### Crypto
 - Simulation après impôts : PEA contre compte-titres pour le cœur, et effet du report d'impôt via stablecoin pour la crypto.
 - Scénario catastrophe : le stablecoin de refuge (USDC) perd sa parité de 10 % pendant que le robot est en cash : impact sur le portefeuille ?
