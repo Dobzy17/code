@@ -12,8 +12,8 @@ import pandas as pd
 
 @dataclass(frozen=True)
 class Limits:
-    max_order_eur: float = 500.0         # aucun ordre au-delà, quoi qu'il arrive
-    max_daily_eur: float = 1000.0        # total des ordres d'une journée
+    max_order_eur: float = 250.0         # aucun ordre au-delà, quoi qu'il arrive (pilote de 500 €, 18/11/2026)
+    max_daily_eur: float = 500.0         # total des ordres d'une journée
     max_data_age_h: float = 48.0         # données plus vieilles : on ne fait rien
     max_daily_move: float = 0.40         # cours qui bouge de plus de 40 % en un jour : donnée suspecte
     kill_drawdown: float = -0.35         # recul depuis le plus haut : arrêt total

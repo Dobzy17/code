@@ -43,5 +43,5 @@ def test_caps():
     orders = [{"actif": "BTC-EUR", "montant_eur": 2000}, {"actif": "ETH-EUR", "montant_eur": -800},
               {"actif": "X", "montant_eur": 300}]
     kept, notes = cap_orders(orders, L)
-    assert [o["montant_eur"] for o in kept] == [500, -500]   # 3e ordre : plafond du jour (1000 €) atteint
+    assert [o["montant_eur"] for o in kept] == [250, -250]   # 3e ordre : plafond du jour (500 €) atteint
     assert sum(abs(o["montant_eur"]) for o in kept) <= L.max_daily_eur and notes
