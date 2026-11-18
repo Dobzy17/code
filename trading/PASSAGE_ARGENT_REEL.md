@@ -1,5 +1,9 @@
 # Passer à l'argent réel : les conditions
 
+> **Règle absolue (18/11/2026) : AUCUN argent réel tant que l'utilisateur n'a pas dit explicitement « c'est bon ».**
+> Même si toutes les conditions ci-dessous sont remplies. D'ici là : entraînement uniquement. Le dépôt ne contient
+> aucun code capable d'envoyer un ordre.
+
 ## Feu vert seulement si TOUT est vrai
 
 | # | Condition | État au 18/11/2026 |

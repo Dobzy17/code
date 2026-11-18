@@ -158,6 +158,13 @@ pas les dates des chiffres révisés) et si elle améliore un test hors échanti
 - Calendrier : réunions de la Fed et de la BCE, publications d'inflation (skill `economic-calendar-fetcher`) : volatilité
   anormale ces jours-là ? Faut-il éviter de passer des ordres juste avant ?
 
+### Être opérationnel le jour du feu vert
+- Répétition générale : dérouler toute la procédure du premier jour réel sur papier (ouverture PEA, achat ETF, compte Kraken,
+  clé API en lecture seule, première proposition, validation, journal, rapprochement), et lister chaque point bloquant.
+- Exercice d'incident : Kraken en panne, données absentes, coupe-circuit déclenché, ordre à moitié exécuté. Que fait le robot,
+  qu'est-ce qu'il dit à l'utilisateur ? Écrire un test pour chaque cas.
+- Préparer la déclaration fiscale de fin d'année à partir du journal (formulaires 2086 et 3916-bis), sur les trades fictifs.
+
 ### Crypto
 - Simulation après impôts : PEA contre compte-titres pour le cœur, et effet du report d'impôt via stablecoin pour la crypto.
 - Scénario catastrophe : le stablecoin de refuge (USDC) perd sa parité de 10 % pendant que le robot est en cash : impact sur le portefeuille ?
