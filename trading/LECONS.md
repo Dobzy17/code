@@ -143,6 +143,21 @@ puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne 
 - Devises : le « carry trade » (pays à taux élevés contre pays à taux bas) via ETF ou paires de change de Yahoo : rentable pour un particulier ?
 - Options : vendre des calls couverts (ETF de type QYLD, JEPI) contre détenir l'indice : le revenu compense-t-il la hausse perdue ?
 
+### Informations hors marché (données alternatives)
+Règle : une information ne sert que si elle était CONNUE à la date de la décision (dates de publication réelles,
+pas les dates des chiffres révisés) et si elle améliore un test hors échantillon. Sinon, c'est du bruit déjà dans les prix.
+- Courbe des taux US (10 ans moins 2 ans, FRED T10Y2Y) : son inversion annonce-t-elle les baisses de la bourse,
+  et à quel délai ? Réduire les actions après une inversion aurait-il aidé ou coûté ?
+- Indicateur de récession par le chômage (règle de Sahm, FRED SAHMREALTIME, publiée en temps réel) : signal utile pour le cœur actions ?
+- Conditions financières et stress (FRED NFCI, spreads de crédit BAMLH0A0HYM2) : le stress du crédit précède-t-il les krachs ?
+- Positions des gros spéculateurs (rapport CFTC COT, skill `cot-contrarian-detector`) : des positions extrêmes annoncent-elles
+  des retournements sur l'or, le pétrole, le S&P 500, le bitcoin ?
+- Moral des investisseurs (indice Peur et Avidité crypto, api.alternative.me) : acheter la peur extrême bat-il la règle de tendance ?
+- Activité réelle de Bitcoin (transactions, frais, hashrate via blockchain.info et mempool.space) : est-ce qu'elle précède le prix ?
+- Taux de la BCE et inflation en zone euro : effet sur l'euro/dollar et sur la valeur en euros du portefeuille.
+- Calendrier : réunions de la Fed et de la BCE, publications d'inflation (skill `economic-calendar-fetcher`) : volatilité
+  anormale ces jours-là ? Faut-il éviter de passer des ordres juste avant ?
+
 ### Crypto
 - Simulation après impôts : PEA contre compte-titres pour le cœur, et effet du report d'impôt via stablecoin pour la crypto.
 - Scénario catastrophe : le stablecoin de refuge (USDC) perd sa parité de 10 % pendant que le robot est en cash : impact sur le portefeuille ?
