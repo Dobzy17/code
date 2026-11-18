@@ -112,9 +112,20 @@ puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne 
     données trop vieilles, mouvement suspect de plus de 40 %, historique trop court, coupe-circuit, plafonds de 500 € par ordre et 1 000 € par jour.
     Il ne contient **aucun code d'envoi d'ordre** : il écrit une proposition à valider à la main.
 
+## 18 novembre 2026 — rendement du cash (`training_cash_results.md`)
+
+26. **Rémunérer le cash améliore un peu les stratégies avec tendance, mais ne change aucune conclusion.**
+    Taux des bons du Trésor US à 3 mois : 0,2 % (2008-2015), 0,9 % (2016-2021), 4,0 % (2022+).
+    Robot 70/30 : +18,9 % → +19,4 %/an depuis 2021 (+0,5 point). Crypto seule SMA150 : +30,6 % → +32,5 % (+1,9 point).
+    8 ETF avec tendance : +3,6 % → +4,4 à +4,5 %, toujours loin du 60/40 (+9,4 %). **La leçon 23 tient.**
+27. **En pratique, ce gain ne s'obtient pas gratuitement.** Le refuge prévu pour la crypto, c'est le stablecoin, qui ne rapporte
+    rien par défaut. Pour toucher un taux, il faudrait passer en euros (fonds monétaire), et cette vente est imposable (leçon fiscale
+    de PASSAGE_ARGENT_REEL.md). De plus, les taux en euros sont différents des taux US utilisés ici. Pour +0,5 point par an, ça ne vaut pas
+    de déclencher l'impôt à chaque signal. **On garde le stablecoin.** À revoir seulement si une rémunération sûre
+    et conforme MiCA du stablecoin existe (non vérifié).
+28. **Le contrôle croisé tourne chaque nuit** : le robot fictif (Yahoo, USD) et la proposition réelle (Kraken, EUR)
+    sont d'accord le 17 et le 18/11 (BTC et ETH sous leur moyenne). Tout désaccord sera signalé.
+
 ## À tester ensuite
-- Compter le rendement du cash (taux monétaire ou fonds monétaire) dans tous les backtests : les stratégies avec tendance,
-  souvent en cash, sont aujourd'hui sous-estimées.
-- Comparer chaque nuit la proposition réelle (Kraken, EUR) et la décision du robot fictif (Yahoo, USD) : mêmes décisions ?
 - Simulation après impôts : PEA contre compte-titres pour le cœur, et effet du report d'impôt via stablecoin pour la crypto.
 - Scénario catastrophe : le stablecoin de refuge (USDC) perd sa parité de 10 % pendant que le robot est en cash : impact sur le portefeuille ?

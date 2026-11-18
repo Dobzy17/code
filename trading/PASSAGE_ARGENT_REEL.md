@@ -2,9 +2,9 @@
 
 ## Feu vert seulement si TOUT est vrai
 
-| # | Condition | État au 17/11/2026 |
+| # | Condition | État au 18/11/2026 |
 |---|---|---|
-| 1 | Au moins 3 mois de simulation sans bug ni jour manqué non expliqué | ⏳ jour 6/90 |
+| 1 | Au moins 3 mois de simulation sans bug ni jour manqué non expliqué | ⏳ jour 7/90 |
 | 2 | Les ordres simulés correspondent à ce que le backtest aurait fait les mêmes jours | 🟢 semaine 1 conforme (écart 0,00 %) ; à revérifier chaque dimanche |
 | 3 | Les deux leçons « à tester ensuite » qui concernent le risque sont faites (univers sans biais, test glissant) | ✅ univers sans biais (14/11) + test glissant (15/11) |
 | 4 | L'utilisateur a choisi un montant qu'il accepte de voir baisser de 50 % sans paniquer | ❓ à décider |

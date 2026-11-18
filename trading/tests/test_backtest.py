@@ -38,3 +38,13 @@ def test_clean_spikes_removes_fake_jump():
     p = pd.DataFrame({"A": [1.0, 5.0, 1.0, 1.1]}, index=idx)
     out, fixed = clean_spikes(p)
     assert out["A"].tolist() == [1.0, 1.0, 1.0, 1.1] and fixed == {"A": 1}
+
+
+def test_cash_rate_paid_on_uninvested_part():
+    idx = pd.date_range("2024-01-01", periods=366, freq="D")
+    p = pd.DataFrame({"A": 100.0}, index=idx)
+    w = pd.DataFrame({"A": 0.5}, index=idx)
+    eq = bt.run(p, w, cost_bps=0, cash_rate=pd.Series(0.0365, index=idx))
+    r = 0.0365 / 365
+    # jour 1 : rien n'est encore détenu, tout le capital est en cash ; ensuite la moitié
+    assert abs(eq.iloc[-1] - (1 + r) * (1 + 0.5 * r) ** 365) < 1e-9
