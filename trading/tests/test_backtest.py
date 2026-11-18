@@ -48,3 +48,12 @@ def test_cash_rate_paid_on_uninvested_part():
     r = 0.0365 / 365
     # jour 1 : rien n'est encore détenu, tout le capital est en cash ; ensuite la moitié
     assert abs(eq.iloc[-1] - (1 + r) * (1 + 0.5 * r) ** 365) < 1e-9
+
+
+def test_paper_band_hysteresis():
+    sys.path.insert(0, str(Path(__file__).parents[2]))
+    from trading.paper import decide
+    assert decide(104, 100, held=False) is True     # au-dessus de +3 % : achat
+    assert decide(102, 100, held=False) is False    # dans la zone, pas en position : on reste dehors
+    assert decide(98, 100, held=True) is True       # dans la zone, en position : on garde
+    assert decide(96, 100, held=True) is False      # sous −3 % : vente

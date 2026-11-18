@@ -22,6 +22,7 @@ HERE = Path(__file__).parent
 HOLDINGS = HERE / "holdings.json"
 SLEEVE = {"BTC-EUR": 0.5, "ETH-EUR": 0.5}   # mêmes règles que paper.py : moitié BTC, moitié ETH
 SMA_DAYS, BAND = 150, 0.02                 # trading au-delà de 2 points d'écart à la cible
+TREND_BAND = 0.03                          # zone tampon ±3 % autour de la moyenne (accord du 18/11/2026)
 
 
 def main() -> None:
@@ -41,7 +42,9 @@ def main() -> None:
         s = closes[t]
         reasons = check_data(s, now, lim)
         sma = s.rolling(SMA_DAYS).mean().iloc[-1]
-        on = s.iloc[-1] > sma
+        held = h[t] > 0
+        last_px = s.iloc[-1]
+        on = last_px > sma * (1 + TREND_BAND) or (held and last_px >= sma * (1 - TREND_BAND))
         lines.append(f"- **{t}** clôture {s.index[-1].date()} : {s.iloc[-1]:,.2f} € "
                      f"{'>' if on else '<'} moyenne {SMA_DAYS} j {sma:,.2f} € → cible {share if on else 0:.0%}")
         if reasons:

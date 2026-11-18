@@ -8,7 +8,8 @@ Portefeuille (choisi d'après trading/research.py, pas au hasard) :
   * 70 % « cœur »     : ETF actions monde (ACWI), achat-conservation.
                         La recherche montre qu'aucune règle active ne bat ça en actions.
   * 30 % « satellite » : BTC + ETH, seulement quand chacun est au-dessus de sa moyenne
-                        150 jours ; sinon cette part reste en cash. Réglage pris au MILIEU
+                        150 jours, avec une zone tampon de ±3 % (depuis le 18/11/2026) ; sinon cash.
+                        Cours crypto : clôtures Kraken terminées, Yahoo en secours. Réglage pris au MILIEU
                         de la plage qui marche (50 à 250 j), pas le meilleur du passé.
 
 Garde-fous :
@@ -30,6 +31,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 import pandas as pd
 
 from data import load_prices
+from live.kraken_data import daily_closes
 
 ROOT = Path(__file__).parent
 STATE = ROOT / "state" / "portfolio.json"
@@ -40,6 +42,7 @@ CORE = {"ACWI": 0.70}
 CRYPTO = ["BTC-USD", "ETH-USD"]
 CRYPTO_SLEEVE = 0.30
 SMA_DAYS = 150
+TREND_BAND = 0.03
 COST = 0.002
 BAND = 0.02
 KILL_DRAWDOWN = -0.35
@@ -53,17 +56,40 @@ def load_state() -> dict:
             "start": date.today().isoformat()}
 
 
-def targets(prices: pd.DataFrame) -> tuple[dict, dict]:
+def decide(last: float, sma: float, held: bool, band: float = TREND_BAND) -> bool:
+    """Règle de tendance avec zone tampon (accord de l'utilisateur le 18/11/2026, leçon 22) :
+    on achète si le cours dépasse la moyenne de 3 %, on vend s'il passe 3 % en dessous ;
+    entre les deux, on garde la position actuelle."""
+    if last > sma * (1 + band):
+        return True
+    if last < sma * (1 - band):
+        return False
+    return held
+
+
+def crypto_closes(t: str, fallback: pd.Series) -> tuple[pd.Series, str]:
+    """Clôtures journalières TERMINÉES de Kraken (accord du 18/11/2026, leçons 17 et 21) ; Yahoo en secours."""
+    try:
+        s = daily_closes(t)
+        if len(s) > SMA_DAYS:
+            return s, "Kraken"
+    except Exception as e:  # réseau, API : on le dit et on passe sur Yahoo
+        print(f"[paper] Kraken indisponible pour {t} ({e}) : secours Yahoo")
+    return fallback.dropna(), "Yahoo (secours)"
+
+
+def targets(crypto: dict[str, tuple[pd.Series, str]], held: dict[str, bool]) -> tuple[dict, dict]:
     """Poids cibles + explication lisible de chaque décision."""
     w, why = dict(CORE), {t: "cœur : toujours investi" for t in CORE}
     for t in CRYPTO:
-        s = prices[t].dropna()
+        s, src = crypto[t]
         sma = s.rolling(SMA_DAYS).mean().iloc[-1]
         last = s.iloc[-1]
-        on = last > sma
+        on = decide(last, sma, held.get(t, False))
         w[t] = CRYPTO_SLEEVE / len(CRYPTO) if on else 0.0
-        why[t] = (f"{last:,.0f} $ {'>' if on else '<'} moyenne {SMA_DAYS} j ({sma:,.0f} $) "
-                  f"→ {'tendance haussière, investi' if on else 'tendance baissière, en cash'}")
+        zone = f"zone tampon {sma * (1 - TREND_BAND):,.0f}–{sma * (1 + TREND_BAND):,.0f} $"
+        why[t] = (f"clôture {s.index[-1].date()} ({src}) {last:,.0f} $, moyenne {SMA_DAYS} j {sma:,.0f} $, {zone} "
+                  f"→ {'investi' if on else 'en cash'}")
     return w, why
 
 
@@ -72,7 +98,10 @@ def main(dry: bool = False) -> None:
     raw = load_prices(tickers, start="2023-01-01", max_age_hours=2)
     idx = pd.date_range(raw.index.min(), raw.index.max(), freq="D")
     prices = raw.reindex(idx).ffill()
-    last = prices.iloc[-1]
+    crypto = {t: crypto_closes(t, prices[t]) for t in CRYPTO}
+    last = prices.iloc[-1].copy()
+    for t in CRYPTO:  # valorisation de la crypto au même cours que la décision
+        last[t] = crypto[t][0].iloc[-1]
     today = date.today().isoformat()
 
     state = load_state()
@@ -84,7 +113,7 @@ def main(dry: bool = False) -> None:
     state["peak"] = max(state["peak"], equity)
     dd = equity / state["peak"] - 1
 
-    w, why = targets(prices)
+    w, why = targets(crypto, {t: pos.get(t, 0.0) > 0 for t in CRYPTO})
     trades: list[dict] = []
     if dd <= KILL_DRAWDOWN:
         state["halted"] = True

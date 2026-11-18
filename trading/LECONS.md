@@ -72,7 +72,7 @@ Portefeuille complet testé (70 % ACWI + 30 % crypto avec tendance), frais 0,20 
     intrajournalier, alors que le backtest décide sur des clôtures. Avec l'écart actuel (BTC 11 % sous sa moyenne),
     ça ne change rien. Mais un jour où le cours est tout près de la moyenne, la décision pourrait différer du backtest.
 
-**Proposition (non appliquée, en attente de ton accord) :** pour la crypto, le robot prendrait les clôtures
+**ACCEPTÉ le 18/11/2026, en production :** pour la crypto, le robot prend les clôtures
 **Kraken** (bougies terminées) au lieu de Yahoo, avec Yahoo en secours. C'est cohérent avec le passage au réel,
 puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne changent pas, seulement la source des cours.
 
@@ -95,7 +95,7 @@ puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne 
 22. **Une zone tampon ne rapporte pas plus, mais elle divise les ordres par deux.** Avec une zone de 0 à 5 %, le Sharpe reste
     entre 1,00 et 1,04 après 2021 (à chaque fois, aucune amélioration de rendement), mais le nombre d'ordres crypto passe de 136
     (sans zone) à 70 (zone de 2 %) puis 48 (zone de 5 %). Avec la zone de 3 %, la perte max passe de −28,0 % à −25,8 %.
-    **Proposition (en attente de ton accord) : une zone de 3 %**. C'est moins d'ordres, donc moins de frais réels, moins de lignes
+    **Zone de 3 % : ACCEPTÉE le 18/11/2026, en production dans paper.py et live/propose.py**. C'est moins d'ordres, donc moins de frais réels, moins de lignes
     à déclarer, et moins de sensibilité à l'heure du cours (le cours n'est à moins de 2 % de sa moyenne
     que 4 à 5 % des jours).
 23. **Le suivi de tendance « des fonds pros », version particulier (8 ETF, achat seulement), ne vaut pas le coup.**
