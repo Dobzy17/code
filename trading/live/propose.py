@@ -25,12 +25,24 @@ SMA_DAYS, BAND = 150, 0.02                 # trading au-delà de 2 points d'éca
 TREND_BAND = 0.03                          # zone tampon ±3 % autour de la moyenne (accord du 18/11/2026)
 
 
-def main() -> None:
-    now = datetime.now(timezone.utc).replace(tzinfo=None)
+def write(text: str) -> str:
+    (HERE / "derniere_proposition.md").write_text(text)
+    print(text)
+    return text
+
+
+def main(now: datetime | None = None) -> str:
+    now = now or datetime.now(timezone.utc).replace(tzinfo=None)
     lim = Limits()
     h = json.loads(HOLDINGS.read_text()) if HOLDINGS.exists() else \
         {"eur": 0.0, "BTC-EUR": 0.0, "ETH-EUR": 0.0, "peak": 0.0, "halted": False}
-    closes = {t: daily_closes(t) for t in SLEEVE}
+    try:
+        closes = {t: daily_closes(t) for t in SLEEVE}
+    except Exception as e:
+        # Argent réel : PAS de source de secours. Sans les cours de la plateforme d'exécution, on ne propose rien.
+        return write(f"# Proposition d'ordres réels — {now:%Y-%m-%d %H:%M} UTC\n\n"
+                     f"⛔ AUCUN ORDRE : cours Kraken indisponibles ({type(e).__name__}: {e}). "
+                     f"Réessayer plus tard ; ne rien faire à la main sur la base d'autres cours.\n")
     last = {t: s.iloc[-1] for t, s in closes.items()}
     equity = h["eur"] + sum(h[t] * last[t] for t in SLEEVE)
 
@@ -63,9 +75,7 @@ def main() -> None:
     else:
         lines += [f"- {o['sens']} {o['actif']} : {abs(o['montant_eur']):,.2f} €" for o in orders] or ["- Aucun."]
         lines += [f"- ⚠️ {n}" for n in notes]
-    text = "\n".join(lines) + "\n"
-    (HERE / "derniere_proposition.md").write_text(text)
-    print(text)
+    return write("\n".join(lines) + "\n")
 
 
 if __name__ == "__main__":

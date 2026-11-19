@@ -126,11 +126,32 @@ puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne 
 28. **Le contrôle croisé tourne chaque nuit** : le robot fictif (Yahoo, USD) et la proposition réelle (Kraken, EUR)
     sont d'accord le 17 et le 18/11 (BTC et ETH sous leur moyenne). Tout désaccord sera signalé.
 
+## 19 novembre 2026 — nuit (rotation sectorielle, peur extrême, incidents)
+
+29. **Bourse — choisir les secteurs « qui montent » ne bat pas l'indice.** 9 ETF sectoriels, top 3 par momentum,
+    1999-2026, frais 0,20 % : après 2013, entre +11,0 % et +13,6 %/an selon la durée (3 à 12 mois), contre **+14,2 % pour le S&P 500**
+    (Sharpe 0,71 à 0,84 contre 0,88). Avant 2013, quelques versions font un peu mieux que l'indice, mais aucune ne bat les
+    9 secteurs à poids égaux (+5,6 %/an). Le seul gain stable, c'est une perte max un peu plus faible (−45 % contre −55 %).
+    **Pas d'intérêt pour le robot.**
+30. **Hors marché — « acheter la peur extrême » est un mythe sur la crypto.** Depuis 2018, 180 jours après une peur extrême (≤ 15/100),
+    BTC a fait en médiane **+3 %, contre +13 % pour un jour quelconque**. Sur 16 épisodes terminés, 9 ont fini en baisse
+    (2018, 2022 : −40 à −51 %). La stratégie « acheter et garder 180 jours après chaque peur extrême » fait **−5,7 %/an**
+    (Sharpe 0,16), contre +41,6 %/an pour la règle de tendance du robot. Combiner les deux dégrade la tendance (Sharpe 1,04 → 0,66).
+    Aujourd'hui, l'indice est à 10/100 : c'est une information sur le moral, **pas un signal d'achat**. La peur extrême accompagne
+    souvent une tendance baissière qui continue. Curiosité : l'avidité extrême (≥ 80) a été suivie de +26 % à 90 jours (médiane) ;
+    c'est la tendance qui parle, pas un signal de vente.
+31. **Opérationnel — 6 incidents répétés et testés** (`live/PROCEDURE_INCIDENTS.md`, `tests/test_incidents.py`) :
+    Kraken en panne, historique trop court, données trop vieilles, coupe-circuit, ordre exécuté à moitié. Un défaut a été trouvé
+    et corrigé : si Kraken ne répondait pas, le module réel **plantait** sans message. Désormais, il écrit « AUCUN ORDRE »
+    avec la raison, et il n'utilise volontairement **aucune source de secours** avec de l'argent réel. Un ordre exécuté à moitié est complété
+    sans doublon à la proposition suivante.
+32. **Veille installée** (`veille.py`, chaque nuit) : courbe des taux, règle de Sahm, conditions financières, prime de risque,
+    taux BCE, positions CFTC (or, pétrole, S&P 500, bitcoin), Peur et Avidité, activité de la blockchain Bitcoin.
+    Comparaison quotidienne avec les références : `compare.py` → `state/comparaison.csv`.
+
 ## À tester ensuite
 
 ### Bourse (actions, ETF)
-- Momentum sectoriel : chaque mois, détenir les 3 ETF sectoriels US (XLK, XLF, XLE, XLV…) les plus forts sur 6 à 12 mois.
-  Est-ce que ça bat le S&P 500 après frais, avant et après 2016 ?
 - Facteurs « reconnus » via ETF : momentum (MTUM), qualité (QUAL), faible volatilité (USMV), value (VLUE), petites capitalisations (IWM)
   contre le marché (SPY). Lesquels ont tenu leurs promesses depuis leur lancement ?
 - Dérive après résultats (PEAD) : les actions qui battent fortement les attentes continuent-elles à monter les semaines suivantes ?
@@ -152,7 +173,6 @@ pas les dates des chiffres révisés) et si elle améliore un test hors échanti
 - Conditions financières et stress (FRED NFCI, spreads de crédit BAMLH0A0HYM2) : le stress du crédit précède-t-il les krachs ?
 - Positions des gros spéculateurs (rapport CFTC COT, skill `cot-contrarian-detector`) : des positions extrêmes annoncent-elles
   des retournements sur l'or, le pétrole, le S&P 500, le bitcoin ?
-- Moral des investisseurs (indice Peur et Avidité crypto, api.alternative.me) : acheter la peur extrême bat-il la règle de tendance ?
 - Activité réelle de Bitcoin (transactions, frais, hashrate via blockchain.info et mempool.space) : est-ce qu'elle précède le prix ?
 - Taux de la BCE et inflation en zone euro : effet sur l'euro/dollar et sur la valeur en euros du portefeuille.
 - Calendrier : réunions de la Fed et de la BCE, publications d'inflation (skill `economic-calendar-fetcher`) : volatilité
@@ -161,8 +181,7 @@ pas les dates des chiffres révisés) et si elle améliore un test hors échanti
 ### Être opérationnel le jour du feu vert
 - Répétition générale : dérouler toute la procédure du premier jour réel sur papier (ouverture PEA, achat ETF, compte Kraken,
   clé API en lecture seule, première proposition, validation, journal, rapprochement), et lister chaque point bloquant.
-- Exercice d'incident : Kraken en panne, données absentes, coupe-circuit déclenché, ordre à moitié exécuté. Que fait le robot,
-  qu'est-ce qu'il dit à l'utilisateur ? Écrire un test pour chaque cas.
+- Incident restant : plusieurs nuits manquées de suite (session non lancée). Le robot doit-il rattraper, et comment le détecter ?
 - Préparer la déclaration fiscale de fin d'année à partir du journal (formulaires 2086 et 3916-bis), sur les trades fictifs.
 
 ### Crypto
