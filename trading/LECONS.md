@@ -181,6 +181,10 @@ puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne 
 - Dividendes en croissance (skill `dividend-growth-pullback-screener`) contre un ETF dividendes (SCHD, VIG) : gagne-t-on quelque chose à choisir soi-même ?
 - Saisonnalité (« Sell in May », effet de fin de mois) : réel ou disparu depuis sa publication ?
 
+- Thème IA (demande de l'utilisateur, 20/11) : un satellite « IA » (NVDA seul, ou un ETF semi-conducteurs comme SMH)
+  avec la règle de tendance, contre l'ETF monde. Tester sans biais du survivant : appliquer la même règle aux leaders tech
+  de 2000 (CSCO, INTC, ORCL…), choisis à l'époque, pas après coup. Quelle part maximum dans le portefeuille ?
+
 ### Autres marchés
 - L'or sur une période défavorable (1980-2001, or en baisse de plus de 60 %) avec des données de long terme : la conclusion de la leçon 34 tient-elle ?
 - Devises : le « carry trade » (pays à taux élevés contre pays à taux bas) via ETF ou paires de change de Yahoo : rentable pour un particulier ?
