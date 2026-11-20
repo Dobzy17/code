@@ -185,6 +185,16 @@ puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne 
   avec la règle de tendance, contre l'ETF monde. Tester sans biais du survivant : appliquer la même règle aux leaders tech
   de 2000 (CSCO, INTC, ORCL…), choisis à l'époque, pas après coup. Quelle part maximum dans le portefeuille ?
 
+### Radar de tous les marchés (où est l'argent en ce moment ?)
+- Radar mensuel d'environ 50 ETF couvrant TOUS les marchés : actions par pays (USA, Europe, France, Japon, Inde, Chine,
+  Brésil, émergents), secteurs (IA et semi-conducteurs, énergie, défense, santé, banques), matières premières (pétrole,
+  cuivre, uranium, argent, agriculture), or, obligations (État, entreprises, pays émergents), immobilier, crypto.
+  Classer par force de tendance (momentum 12 mois, position par rapport à la moyenne 150 j). Question testée : détenir chaque
+  mois les 5 marchés les plus forts sur les 50, avec la règle de sortie du robot, bat-il l'ETF monde après frais et impôts,
+  avant et après 2016 ? Biais à éviter : n'utiliser que les ETF qui existaient à chaque date.
+- Marchés « à fort potentiel » souvent cités (Inde, uranium, cuivre, défense européenne, petites capitalisations) : tester
+  chacun avec la règle de tendance, et regarder ce qui s'est passé APRÈS les périodes où ils étaient « à la mode ».
+
 ### Autres marchés
 - L'or sur une période défavorable (1980-2001, or en baisse de plus de 60 %) avec des données de long terme : la conclusion de la leçon 34 tient-elle ?
 - Devises : le « carry trade » (pays à taux élevés contre pays à taux bas) via ETF ou paires de change de Yahoo : rentable pour un particulier ?
