@@ -1,5 +1,9 @@
 # Ce que l'entraînement m'a appris
 
+**Objectif : le PROFIT.** Chaque test est jugé sur une question : combien d'argent en plus, après frais et impôts,
+par rapport à l'ETF monde seul, et avec quel risque de grosse perte ? Une idée qui ne rapporte pas plus est écartée,
+même si elle est séduisante.
+
 Mémoire écrite du robot : chaque leçon vient d'un test reproductible (`research.py`, `training.py`).
 On ajoute une ligne à chaque nouveau test, on n'efface jamais une leçon qui dérange.
 
