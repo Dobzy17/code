@@ -149,18 +149,40 @@ puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne 
     taux BCE, positions CFTC (or, pétrole, S&P 500, bitcoin), Peur et Avidité, activité de la blockchain Bitcoin.
     Comparaison quotidienne avec les références : `compare.py` → `state/comparaison.csv`.
 
+## 20 novembre 2026 — nuit (facteurs, or, impôts)
+
+33. **Bourse — les « facteurs » en ETF n'ont pas battu le S&P 500.** Depuis le lancement de chaque ETF :
+    momentum +0,3 point par an (bruit), qualité −0,3 point, value −1,4 point, faible volatilité −3,0 points, petites capitalisations −3,2 points.
+    Aucun ne gagne nettement plus d'une année sur deux. La « faible volatilité » ne réduit même pas la pire baisse
+    (−33 % contre −34 %). Leur corrélation avec SPY est de 0,86 à 0,98 : ce sont presque des copies de l'indice, avec des frais en plus.
+    **Le cœur reste un ETF monde simple.**
+34. **Autres marchés — l'or protège dans les krachs LENTS, pas dans les krachs rapides.** Krachs de plus de 15 % du S&P 500 depuis 2004 :
+    2008-09 : or +24 % (S&P −55 %) ; 2018 : +5 % ; 2025 : +2 %. Mais 2020 (Covid) : −4 %, et 2022 : −7 %. Les obligations
+    ont fait mieux en 2020 (+6 %) et bien pire en 2022 (−15 %) : aucun refuge ne marche à tous les coups.
+    Ajouter de l'or améliore le portefeuille de façon **régulière sur toute la plage** (0 à 30 %) et sur les deux périodes :
+    en 2016+, la perte max passe de −34 % (0 % d'or) à −31 % (10 %) puis −28 % (20 %), à rendement presque identique (+14,4 % → +14,3 %).
+    **Limite importante :** 2005-2026 a été une période très favorable à l'or (deux grandes hausses). De plus, la corrélation
+    or/actions est aujourd'hui élevée (+0,36 contre +0,07 en médiane) : il protège moins en ce moment.
+    **Proposition (en attente de ton accord) : 10 % d'or dans le cœur** (60 % ACWI + 10 % or + 30 % crypto). **Attention fiscale :**
+    l'or (ETC) n'est PAS éligible au PEA : il irait sur un compte-titres, imposé à 30 %.
+35. **Crypto — vendre en stablecoin plutôt qu'en euros vaut environ +25 % de capital final.** Satellite BTC/ETH avec la règle de tendance,
+    2018 → 2026, 10 000 au départ, impôt de 30 % : **123 475** net avec la vente en stablecoin (un seul impôt au retrait)
+    contre **99 020** avec la vente en euros à chaque signal (impôt chaque année ; −20 %). Avec un taux de 31,4 % : 121 205 contre 96 115.
+    Les impôts payés sont presque les mêmes. La différence vient des intérêts composés sur l'impôt reporté.
+    **Le choix du stablecoin est confirmé**, sous réserve du risque de perte de parité (prochain test crypto).
+36. **PEA contre compte-titres pour le cœur** : avec le même ETF et 10 000 € placés, le PEA laisse +1 483 € de plus après 10 ans
+    et +4 686 € après 20 ans (à 8 %/an). **Le cœur actions va dans un PEA, sans hésiter**, à condition d'utiliser un ETF monde éligible.
+
 ## À tester ensuite
 
 ### Bourse (actions, ETF)
-- Facteurs « reconnus » via ETF : momentum (MTUM), qualité (QUAL), faible volatilité (USMV), value (VLUE), petites capitalisations (IWM)
-  contre le marché (SPY). Lesquels ont tenu leurs promesses depuis leur lancement ?
 - Dérive après résultats (PEAD) : les actions qui battent fortement les attentes continuent-elles à monter les semaines suivantes ?
   Utiliser le skill `pead-screener` du dépôt si la clé FMP gratuite le permet, sinon les données Yahoo.
 - Dividendes en croissance (skill `dividend-growth-pullback-screener`) contre un ETF dividendes (SCHD, VIG) : gagne-t-on quelque chose à choisir soi-même ?
 - Saisonnalité (« Sell in May », effet de fin de mois) : réel ou disparu depuis sa publication ?
 
 ### Autres marchés
-- Or et matières premières : l'or protège-t-il vraiment un portefeuille en crise (2008, 2020, 2022) ? Quel poids optimal sans regarder le futur ?
+- L'or sur une période défavorable (1980-2001, or en baisse de plus de 60 %) avec des données de long terme : la conclusion de la leçon 34 tient-elle ?
 - Devises : le « carry trade » (pays à taux élevés contre pays à taux bas) via ETF ou paires de change de Yahoo : rentable pour un particulier ?
 - Options : vendre des calls couverts (ETF de type QYLD, JEPI) contre détenir l'indice : le revenu compense-t-il la hausse perdue ?
 
@@ -185,5 +207,4 @@ pas les dates des chiffres révisés) et si elle améliore un test hors échanti
 - Préparer la déclaration fiscale de fin d'année à partir du journal (formulaires 2086 et 3916-bis), sur les trades fictifs.
 
 ### Crypto
-- Simulation après impôts : PEA contre compte-titres pour le cœur, et effet du report d'impôt via stablecoin pour la crypto.
 - Scénario catastrophe : le stablecoin de refuge (USDC) perd sa parité de 10 % pendant que le robot est en cash : impact sur le portefeuille ?
