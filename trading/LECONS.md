@@ -177,6 +177,26 @@ puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne 
 36. **PEA contre compte-titres pour le cœur** : avec le même ETF et 10 000 € placés, le PEA laisse +1 483 € de plus après 10 ans
     et +4 686 € après 20 ans (à 8 %/an). **Le cœur actions va dans un PEA, sans hésiter**, à condition d'utiliser un ETF monde éligible.
 
+## 21 novembre 2026 — nuit (radar de tous les marchés, satellite IA, courbe des taux)
+
+37. **Courir après les marchés « qui montent » fait PERDRE de l'argent par rapport à l'ETF monde.** Radar de 45 ETF
+    (pays, secteurs, matières premières, obligations, immobilier), top 5 chaque mois par tendance sur 12 mois :
+    depuis 2009, ×2,65 contre **×6,30 pour l'ETF monde sans rien faire**. Le résultat est le même avec le top 3 (×3,54), le top 10 (×3,54)
+    ou sans règle de sortie (×2,98) : ce n'est pas un problème de réglage. Après impôts, c'est pire : **1 € devient 1,78 € avec
+    le radar** (compte-titres, impôt chaque année) **contre 5,39 € avec l'ETF monde dans un PEA**. Les marchés « chauds » (uranium, pétrole,
+    Brésil, biotech, argent) se retournent souvent juste après avoir été les plus forts. **Écarté.**
+38. **Satellite IA : le résultat sur Nvidia est un mirage du recul.** Depuis 2010, 10 % de Nvidia porte un portefeuille S&P 500
+    de +13,5 % à +16,7 %/an, mais c'est parce qu'on SAIT aujourd'hui que Nvidia a gagné. **Le test honnête**, avec les 6 leaders tech
+    choisis en mars 2000 (Microsoft, Cisco, Intel, Oracle, IBM, Qualcomm) : 10 % de satellite = +7,9 %/an contre +7,8 % pour le S&P 500
+    seul. Le panier entier a fait ×7,6 en 26 ans, avec **−71 %** en chemin, et ce résultat est encore flatté par l'absence de Lucent et Nortel,
+    disparus. Pendant 12 ans (2000-2012), le panier a rapporté **0 %**. La règle de tendance n'y change presque rien. **Pas de satellite IA :**
+    l'ETF monde contient déjà Nvidia, Microsoft, etc. à leur juste poids, et il remplace automatiquement les perdants.
+39. **Hors marché — la courbe des taux inversée annonce bien les récessions, mais elle ne permet PAS d'en profiter.** 7 inversions depuis 1976 :
+    le S&P 500 était encore en HAUSSE 12 mois après 5 d'entre elles (+7 % à +31 %). Les krachs arrivent parfois plus de 2 ans après
+    (2005 → krach de 2008). Sortir des actions pendant l'inversion, ou 6, 12 ou 18 mois après : **aucune version ne réduit la pire baisse (−55 %)**,
+    et la plupart rapportent moins (2000+ : de +6,6 % à +8,4 % contre +8,0 %). La courbe est aujourd'hui à +0,29 : aucun signal,
+    et de toute façon **elle ne sera pas utilisée par le robot**.
+
 ## À tester ensuite
 
 ### Bourse (actions, ETF)
@@ -185,17 +205,10 @@ puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne 
 - Dividendes en croissance (skill `dividend-growth-pullback-screener`) contre un ETF dividendes (SCHD, VIG) : gagne-t-on quelque chose à choisir soi-même ?
 - Saisonnalité (« Sell in May », effet de fin de mois) : réel ou disparu depuis sa publication ?
 
-- Thème IA (demande de l'utilisateur, 20/11) : un satellite « IA » (NVDA seul, ou un ETF semi-conducteurs comme SMH)
-  avec la règle de tendance, contre l'ETF monde. Tester sans biais du survivant : appliquer la même règle aux leaders tech
-  de 2000 (CSCO, INTC, ORCL…), choisis à l'époque, pas après coup. Quelle part maximum dans le portefeuille ?
 
 ### Radar de tous les marchés (où est l'argent en ce moment ?)
-- Radar mensuel d'environ 50 ETF couvrant TOUS les marchés : actions par pays (USA, Europe, France, Japon, Inde, Chine,
-  Brésil, émergents), secteurs (IA et semi-conducteurs, énergie, défense, santé, banques), matières premières (pétrole,
-  cuivre, uranium, argent, agriculture), or, obligations (État, entreprises, pays émergents), immobilier, crypto.
-  Classer par force de tendance (momentum 12 mois, position par rapport à la moyenne 150 j). Question testée : détenir chaque
-  mois les 5 marchés les plus forts sur les 50, avec la règle de sortie du robot, bat-il l'ETF monde après frais et impôts,
-  avant et après 2016 ? Biais à éviter : n'utiliser que les ETF qui existaient à chaque date.
+- Radar en sens inverse (« contrarian ») : acheter chaque année les 5 marchés les PLUS FAIBLES des 3 dernières années (retour à la moyenne
+  de long terme, documenté par De Bondt et Thaler). Le résultat de la leçon 37 suggère que ça pourrait marcher sur les pays.
 - Marchés « à fort potentiel » souvent cités (Inde, uranium, cuivre, défense européenne, petites capitalisations) : tester
   chacun avec la règle de tendance, et regarder ce qui s'est passé APRÈS les périodes où ils étaient « à la mode ».
 
@@ -207,8 +220,6 @@ puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne 
 ### Informations hors marché (données alternatives)
 Règle : une information ne sert que si elle était CONNUE à la date de la décision (dates de publication réelles,
 pas les dates des chiffres révisés) et si elle améliore un test hors échantillon. Sinon, c'est du bruit déjà dans les prix.
-- Courbe des taux US (10 ans moins 2 ans, FRED T10Y2Y) : son inversion annonce-t-elle les baisses de la bourse,
-  et à quel délai ? Réduire les actions après une inversion aurait-il aidé ou coûté ?
 - Indicateur de récession par le chômage (règle de Sahm, FRED SAHMREALTIME, publiée en temps réel) : signal utile pour le cœur actions ?
 - Conditions financières et stress (FRED NFCI, spreads de crédit BAMLH0A0HYM2) : le stress du crédit précède-t-il les krachs ?
 - Positions des gros spéculateurs (rapport CFTC COT, skill `cot-contrarian-detector`) : des positions extrêmes annoncent-elles
