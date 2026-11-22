@@ -197,6 +197,21 @@ puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne 
     et la plupart rapportent moins (2000+ : de +6,6 % à +8,4 % contre +8,0 %). La courbe est aujourd'hui à +0,29 : aucun signal,
     et de toute façon **elle ne sera pas utilisée par le robot**.
 
+## 22 novembre 2026 — nuit (options, stablecoin, nuits manquées)
+
+40. **Options : les ETF « à gros revenu » (calls couverts) font perdre de l'argent par rapport à l'indice.** QYLD : +7,3 %/an contre
+    +17,2 % pour le Nasdaq 100 depuis 2014 (×2,46 contre ×7,68). XYLD : −5,7 points par an. JEPI : −4,7. JEPQ : −4,5. Leur « rendement de 8 à 12 % »
+    sert surtout à rendre au client son propre capital, tout en lui faisant rater la hausse. Ils baissent un peu moins dans
+    les krachs (QYLD −25 % contre −35 %), mais en France, leur revenu est imposé à 30 % chaque année et ils sont exclus du PEA. **Écarté.**
+41. **Crypto : le risque du stablecoin est réel mais limité, et il se réduit facilement.** Le satellite est en stablecoin
+    **47 % du temps** (100 % en ce moment). Perte de parité de 10 %, comme USDC en séance en mars 2023 : −3 % sur le portefeuille total.
+    Faillite totale, comme TerraUSD en 2022 : −30 %. **Proposition (en attente de ton accord) :** répartir le refuge à parts égales
+    entre deux stablecoins conformes MiCA d'émetteurs différents (**USDC + EURC**), ce qui limite le pire cas à −15 % ;
+    plus une alerte si l'un d'eux cote sous 0,98.
+42. **Opérationnel : les nuits manquées sont maintenant détectées et écrites dans le journal** (`missed_nights`, testé).
+    Il n'y a rien à « rattraper » : le robot compare chaque nuit ses positions aux cibles du jour et rééquilibre en une fois.
+    Premier rééquilibrage réel observé le 22/11 : achat de 188 $ d'ETF après sa chute (passé sous 68 %), exactement selon la règle.
+
 ## À tester ensuite
 
 ### Bourse (actions, ETF)
@@ -215,7 +230,6 @@ puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne 
 ### Autres marchés
 - L'or sur une période défavorable (1980-2001, or en baisse de plus de 60 %) avec des données de long terme : la conclusion de la leçon 34 tient-elle ?
 - Devises : le « carry trade » (pays à taux élevés contre pays à taux bas) via ETF ou paires de change de Yahoo : rentable pour un particulier ?
-- Options : vendre des calls couverts (ETF de type QYLD, JEPI) contre détenir l'indice : le revenu compense-t-il la hausse perdue ?
 
 ### Informations hors marché (données alternatives)
 Règle : une information ne sert que si elle était CONNUE à la date de la décision (dates de publication réelles,
@@ -232,8 +246,7 @@ pas les dates des chiffres révisés) et si elle améliore un test hors échanti
 ### Être opérationnel le jour du feu vert
 - Répétition générale : dérouler toute la procédure du premier jour réel sur papier (ouverture PEA, achat ETF, compte Kraken,
   clé API en lecture seule, première proposition, validation, journal, rapprochement), et lister chaque point bloquant.
-- Incident restant : plusieurs nuits manquées de suite (session non lancée). Le robot doit-il rattraper, et comment le détecter ?
 - Préparer la déclaration fiscale de fin d'année à partir du journal (formulaires 2086 et 3916-bis), sur les trades fictifs.
 
 ### Crypto
-- Scénario catastrophe : le stablecoin de refuge (USDC) perd sa parité de 10 % pendant que le robot est en cash : impact sur le portefeuille ?
+- Fréquence de rééquilibrage du cœur : seuil de 2 points (actuel) contre 5 points, ou une fois par mois : quel coût, quel gain ?

@@ -56,6 +56,15 @@ def load_state() -> dict:
             "start": date.today().isoformat()}
 
 
+def missed_nights(last_run: str | None, today: str) -> int:
+    """Nombre de nuits sans exécution entre le dernier passage et aujourd'hui (0 = rien de manqué).
+    Le robot n'a rien à « rattraper » : il compare toujours les positions aux cibles du jour et rééquilibre
+    en une fois. Mais un trou doit être visible dans le journal (condition 1 du passage au réel)."""
+    if not last_run:
+        return 0
+    return max((date.fromisoformat(today) - date.fromisoformat(last_run)).days - 1, 0)
+
+
 def decide(last: float, sma: float, held: bool, band: float = TREND_BAND) -> bool:
     """Règle de tendance avec zone tampon (accord de l'utilisateur le 18/11/2026, leçon 22) :
     on achète si le cours dépasse la moyenne de 3 %, on vend s'il passe 3 % en dessous ;
@@ -142,8 +151,12 @@ def main(dry: bool = False) -> None:
                            "montant": round(diff_val, 2), "frais": round(fee, 2)})
 
     equity = state["cash"] + sum(q * last[t] for t, q in pos.items())
-    lines = [f"# Journal du robot – {today}", "",
-             f"Capital fictif : **{equity:,.2f} $** (départ {START_CASH:,.0f} $ le {state['start']}, "
+    gap = missed_nights(state.get("last_run"), today)
+    lines = [f"# Journal du robot – {today}", ""]
+    if gap:
+        lines += [f"⚠️ **{gap} nuit(s) manquée(s)** depuis le dernier passage ({state['last_run']}) : "
+                  "le robot rééquilibre directement vers les cibles du jour.", ""]
+    lines += [f"Capital fictif : **{equity:,.2f} $** (départ {START_CASH:,.0f} $ le {state['start']}, "
              f"{equity / START_CASH - 1:+.2%}) · recul depuis le plus haut : {dd:.1%}", ""]
     if state["halted"]:
         lines += ["**COUPE-CIRCUIT ACTIF** : aucun ordre. Décision humaine requise.", ""]

@@ -69,3 +69,9 @@ def test_stale_data_blocks_orders(monkeypatch, tmp_path):
     _setup(monkeypatch, tmp_path, {"eur": 300.0, "BTC-EUR": 0.0, "ETH-EUR": 0.0, "peak": 300.0, "halted": False})
     text = propose.main(datetime(2026, 11, 25, 3))   # dernière bougie du 18/11 : 6 jours de retard
     assert "bloqué" in text and "ACHAT" not in text
+
+
+def test_missed_nights_detected():
+    assert paper.missed_nights("2026-11-21", "2026-11-22") == 0
+    assert paper.missed_nights("2026-11-18", "2026-11-22") == 3
+    assert paper.missed_nights(None, "2026-11-22") == 0
