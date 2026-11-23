@@ -212,6 +212,26 @@ puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne 
     Il n'y a rien à « rattraper » : le robot compare chaque nuit ses positions aux cibles du jour et rééquilibre en une fois.
     Premier rééquilibrage réel observé le 22/11 : achat de 188 $ d'ETF après sa chute (passé sous 68 %), exactement selon la règle.
 
+## 23 novembre 2026 — nuit (radar inversé, stress du crédit, rééquilibrage)
+
+43. **Acheter les marchés les plus faibles des 3 dernières années ne marche pas sur les ETF.** 16 pays, 5 plus faibles : ×3,70 depuis 2009,
+    contre ×6,08 pour l'ETF monde. Sur 45 marchés, c'est pire (×1,97 à ×3,05, perte max jusqu'à −75 %). Le rattrapage documenté par la recherche
+    joue sur 3 à 5 ans ou plus, avec des actions individuelles : il ne se capture pas ici.
+44. **Le cas le plus instructif depuis le début : un résultat « trop beau » démonté.** Garder les 5 marchés les plus FORTS sur 3 ans
+    donnait ×8,70 contre ×6,08 pour l'ETF monde. La vérification montre que c'est un hasard de réglage : avec 2 ans de recul, ×3,3 à ×4,1 ;
+    avec 4 ans, ×5,2 à ×5,8 (moins bien que l'ETF monde). Et sans SMH, XLK et QQQ, que j'avais mis dans la liste en SACHANT qu'ils avaient gagné,
+    on tombe à **×4,07**. **Écarté.** La règle pour la suite : un résultat qui ne tient que pour un seul réglage est un piège.
+45. **Hors marché — le stress du crédit réduit les krachs, mais il coûte la moitié du rendement.** Sortir des actions quand l'écart de
+    crédit Baa dépasse sa moyenne (100, 200 ou 300 jours) : la pire baisse passe de −55 % à −20 % / −36 %, mais le rendement tombe
+    de +17,1 % à +6,5 / +8,5 %/an (1987-1999) et de +7,8 % à +4,6 / +6,3 % (2000+). On reste en cash près de la moitié du temps. **Écarté :**
+    moins de profit. (L'historique haut rendement de FRED ne remonte plus qu'à 2024 : trop court pour conclure.)
+46. **Rééquilibrage : la fréquence compte peu pour le gain, beaucoup pour le nombre d'ordres.** Portefeuille du robot depuis 2018 :
+    seuil de 2 points (actuel) +21,2 %/an et 267 ordres ; **seuil de 5 points +22,3 %/an et 109 ordres** ; mensuel +21,6 % ; annuel +21,1 % ;
+    jamais +21,2 %, mais perte max −41 % au lieu de −34 %. Rééquilibrer sert à contrôler le risque, pas à gagner plus.
+    **Proposition (en attente de ton accord) : passer le seuil de 2 à 5 points.** Le rendement est équivalent, mais il y a 60 % d'ordres en moins
+    (moins de frais réels et de lignes à déclarer). Un bug de simulation (quantité résiduelle après une vente) a été trouvé et corrigé dans le test,
+    et vérifié absent du robot.
+
 ## À tester ensuite
 
 ### Bourse (actions, ETF)
@@ -222,8 +242,6 @@ puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne 
 
 
 ### Radar de tous les marchés (où est l'argent en ce moment ?)
-- Radar en sens inverse (« contrarian ») : acheter chaque année les 5 marchés les PLUS FAIBLES des 3 dernières années (retour à la moyenne
-  de long terme, documenté par De Bondt et Thaler). Le résultat de la leçon 37 suggère que ça pourrait marcher sur les pays.
 - Marchés « à fort potentiel » souvent cités (Inde, uranium, cuivre, défense européenne, petites capitalisations) : tester
   chacun avec la règle de tendance, et regarder ce qui s'est passé APRÈS les périodes où ils étaient « à la mode ».
 
@@ -235,7 +253,6 @@ puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne 
 Règle : une information ne sert que si elle était CONNUE à la date de la décision (dates de publication réelles,
 pas les dates des chiffres révisés) et si elle améliore un test hors échantillon. Sinon, c'est du bruit déjà dans les prix.
 - Indicateur de récession par le chômage (règle de Sahm, FRED SAHMREALTIME, publiée en temps réel) : signal utile pour le cœur actions ?
-- Conditions financières et stress (FRED NFCI, spreads de crédit BAMLH0A0HYM2) : le stress du crédit précède-t-il les krachs ?
 - Positions des gros spéculateurs (rapport CFTC COT, skill `cot-contrarian-detector`) : des positions extrêmes annoncent-elles
   des retournements sur l'or, le pétrole, le S&P 500, le bitcoin ?
 - Activité réelle de Bitcoin (transactions, frais, hashrate via blockchain.info et mempool.space) : est-ce qu'elle précède le prix ?
@@ -249,4 +266,6 @@ pas les dates des chiffres révisés) et si elle améliore un test hors échanti
 - Préparer la déclaration fiscale de fin d'année à partir du journal (formulaires 2086 et 3916-bis), sur les trades fictifs.
 
 ### Crypto
-- Fréquence de rééquilibrage du cœur : seuil de 2 points (actuel) contre 5 points, ou une fois par mois : quel coût, quel gain ?
+- Actif crypto supplémentaire dans le satellite (SOL, par exemple), mais seulement avec un univers choisi à l'époque (leçon 10) :
+  améliore-t-il BTC+ETH avec la règle de tendance, ou est-ce encore du biais du survivant ?
+- Effet du week-end : la crypto cote 7 jours sur 7 ; décider seulement en semaine change-t-il quelque chose ?
