@@ -232,13 +232,28 @@ puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne 
     (moins de frais réels et de lignes à déclarer). Un bug de simulation (quantité résiduelle après une vente) a été trouvé et corrigé dans le test,
     et vérifié absent du robot.
 
+## 24 novembre 2026 — nuit (saisonnalité, carry trade, répétition générale)
+
+47. **Bourse — la saisonnalité a perdu l'essentiel de sa force depuis sa publication.** Rendement moyen d'un jour de fin de mois :
+    +0,136 % en 1950-1986 contre +0,054 % en 2002-2026 (−60 %). Écart novembre-avril / mai-octobre : 5 fois plus faible.
+    Les stratégies perdent contre « toujours investi » : « Sell in May » +6,3 %/an contre +9,8 % depuis 2002 ; « fin de mois » −0,8 %/an
+    (les frais d'entrée et de sortie mangent tout). **Écarté.** Un effet connu de tous finit par disparaître.
+48. **Autres marchés — le carry trade sur devises ne rapporte presque rien et peut faire très mal.** Achat des 2 devises du G10 à taux haut,
+    vente des 2 à taux bas, 2006-2026 : **+0,5 %/an**, perte max −37 % (2008 : −29 %), et −0,3 %/an depuis 2013. En plus, il n'est accessible
+    au particulier qu'avec des CFD à effet de levier, que l'AMF déconseille. **Écarté.**
+49. **Opérationnel — la répétition générale a trouvé un VRAI point bloquant** (`live/PROCEDURE_JOUR_J.md`) : en réalité, il y aura deux comptes
+    séparés (PEA et Kraken) qui ne peuvent pas s'échanger d'argent sans casser le PEA (retrait avant 5 ans) ou déclencher l'impôt
+    (vente de crypto en euros). Le rééquilibrage 70/30 du robot fictif est donc **impossible tel quel**. Solution : rééquilibrer
+    uniquement avec les nouveaux versements mensuels. **Proposition (en attente de ton accord) :** adapter le robot fictif pour qu'il
+    simule ces deux comptes séparés, afin que le test des 90 jours corresponde à la réalité. Autres points notés : suivi de l'ETF en euros,
+    deuxième source pour la clôture d'ACWI (Yahoo a eu 1 jour de retard les 17, 20 et 23/11), formulaire 3916-bis chaque année.
+
 ## À tester ensuite
 
 ### Bourse (actions, ETF)
 - Dérive après résultats (PEAD) : les actions qui battent fortement les attentes continuent-elles à monter les semaines suivantes ?
   Utiliser le skill `pead-screener` du dépôt si la clé FMP gratuite le permet, sinon les données Yahoo.
 - Dividendes en croissance (skill `dividend-growth-pullback-screener`) contre un ETF dividendes (SCHD, VIG) : gagne-t-on quelque chose à choisir soi-même ?
-- Saisonnalité (« Sell in May », effet de fin de mois) : réel ou disparu depuis sa publication ?
 
 
 ### Radar de tous les marchés (où est l'argent en ce moment ?)
@@ -246,8 +261,8 @@ puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne 
   chacun avec la règle de tendance, et regarder ce qui s'est passé APRÈS les périodes où ils étaient « à la mode ».
 
 ### Autres marchés
+- Obligations d'État en euros (Bund, OAT) via ETF : quelle part dans le cœur pour réduire la perte max sans trop coûter (leçon 24) ?
 - L'or sur une période défavorable (1980-2001, or en baisse de plus de 60 %) avec des données de long terme : la conclusion de la leçon 34 tient-elle ?
-- Devises : le « carry trade » (pays à taux élevés contre pays à taux bas) via ETF ou paires de change de Yahoo : rentable pour un particulier ?
 
 ### Informations hors marché (données alternatives)
 Règle : une information ne sert que si elle était CONNUE à la date de la décision (dates de publication réelles,
@@ -261,8 +276,9 @@ pas les dates des chiffres révisés) et si elle améliore un test hors échanti
   anormale ces jours-là ? Faut-il éviter de passer des ordres juste avant ?
 
 ### Être opérationnel le jour du feu vert
-- Répétition générale : dérouler toute la procédure du premier jour réel sur papier (ouverture PEA, achat ETF, compte Kraken,
-  clé API en lecture seule, première proposition, validation, journal, rapprochement), et lister chaque point bloquant.
+- Simuler les deux comptes séparés (PEA / Kraken) avec rééquilibrage par les seuls versements mensuels : quel écart de risque
+  et de rendement avec le robot actuel, sur 2018-2026 ?
+- Deuxième source pour la clôture quotidienne de l'ETF monde (ou de l'ETF PEA en euros), pour éviter le retard de Yahoo.
 - Préparer la déclaration fiscale de fin d'année à partir du journal (formulaires 2086 et 3916-bis), sur les trades fictifs.
 
 ### Crypto
