@@ -248,6 +248,25 @@ puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne 
     simule ces deux comptes séparés, afin que le test des 90 jours corresponde à la réalité. Autres points notés : suivi de l'ETF en euros,
     deuxième source pour la clôture d'ACWI (Yahoo a eu 1 jour de retard les 17, 20 et 23/11), formulaire 3916-bis chaque année.
 
+## 25 novembre 2026 — nuit (deux comptes séparés, règle de Sahm, décisions en semaine)
+
+50. **Opérationnel — avec deux comptes séparés, on gagne plus, mais le portefeuille devient surtout de la crypto.**
+    De 2017-11 à aujourd'hui, 10 000 au départ, sans versement : un compte unique avec rééquilibrage (robot actuel) donne **53 829**, avec une perte max de −34 % ;
+    deux comptes avec rééquilibrage par les seuls versements donnent **74 655**, avec une perte max de −36 %. Mais la part crypto (et stablecoin) dérive
+    **jusqu'à 86 %** (77 % aujourd'hui) au lieu de rester vers 30 %. Avec 100 €/mois : 110 157 contre 82 334, et une part crypto qui va jusqu'à 83 %.
+    Le gain vient du fait de laisser courir le gagnant (la crypto). La règle de tendance a limité les dégâts, mais c'était un pari
+    concentré, et le risque de perte de parité du stablecoin (leçon 41) grandit avec cette part. **À décider : plafonner la part crypto**
+    (par exemple à 40-50 %, en vendant l'excédent en euros une fois par an, ce qui est imposable) ou accepter la dérive. Test ajouté à la liste.
+51. **Hors marché — la règle de Sahm est le premier signal macro qui réduit vraiment les krachs sans coûter de rendement depuis 2000.**
+    Sortir des actions quand l'indicateur du chômage (calculé avec les chiffres de l'époque) atteint 0,50 : perte max **−34 % au lieu de −55 %**
+    (elle a évité l'essentiel de 2008), avec un rendement de +8,1 %/an contre +8,0 % depuis 2000, mais +12,3 % contre +14,7 % en 1977-1999.
+    Elle déclenche tard (le S&P 500 a souvent déjà perdu 8 à 21 %), et de fausses alertes existent (août 2024 : +23 % les 12 mois suivants).
+    **Pas de changement pour l'instant** : il n'y a que 9 signaux en 50 ans, ce qui est trop peu pour s'y fier. Mais elle reste suivie dans la veille, et c'est une candidate
+    sérieuse pour protéger le cœur. Bon point : un arbitrage À L'INTÉRIEUR d'un PEA n'est pas imposé.
+52. **Crypto — décider en semaine seulement ne change presque rien.** Tous les jours : +32,2 %/an depuis 2021, perte max −53 %, 60 ordres ;
+    du lundi au vendredi : +33,3 %, −48 %, 56 ordres ; une fois par semaine : +25,7 %. L'écart en faveur de la semaine est faible et
+    probablement dû au hasard. **On garde la décision quotidienne**, mais une fois par semaine coûte cher : ne pas espacer.
+
 ## À tester ensuite
 
 ### Bourse (actions, ETF)
@@ -267,7 +286,6 @@ puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne 
 ### Informations hors marché (données alternatives)
 Règle : une information ne sert que si elle était CONNUE à la date de la décision (dates de publication réelles,
 pas les dates des chiffres révisés) et si elle améliore un test hors échantillon. Sinon, c'est du bruit déjà dans les prix.
-- Indicateur de récession par le chômage (règle de Sahm, FRED SAHMREALTIME, publiée en temps réel) : signal utile pour le cœur actions ?
 - Positions des gros spéculateurs (rapport CFTC COT, skill `cot-contrarian-detector`) : des positions extrêmes annoncent-elles
   des retournements sur l'or, le pétrole, le S&P 500, le bitcoin ?
 - Activité réelle de Bitcoin (transactions, frais, hashrate via blockchain.info et mempool.space) : est-ce qu'elle précède le prix ?
@@ -276,12 +294,11 @@ pas les dates des chiffres révisés) et si elle améliore un test hors échanti
   anormale ces jours-là ? Faut-il éviter de passer des ordres juste avant ?
 
 ### Être opérationnel le jour du feu vert
-- Simuler les deux comptes séparés (PEA / Kraken) avec rééquilibrage par les seuls versements mensuels : quel écart de risque
-  et de rendement avec le robot actuel, sur 2018-2026 ?
+- Deux comptes : plafonner la part crypto à 40 % ou 50 % (vente de l'excédent en euros une fois par an, impôt de 30 % compris)
+  contre la laisser dériver. Quel compromis profit / risque après impôts ?
 - Deuxième source pour la clôture quotidienne de l'ETF monde (ou de l'ETF PEA en euros), pour éviter le retard de Yahoo.
 - Préparer la déclaration fiscale de fin d'année à partir du journal (formulaires 2086 et 3916-bis), sur les trades fictifs.
 
 ### Crypto
 - Actif crypto supplémentaire dans le satellite (SOL, par exemple), mais seulement avec un univers choisi à l'époque (leçon 10) :
   améliore-t-il BTC+ETH avec la règle de tendance, ou est-ce encore du biais du survivant ?
-- Effet du week-end : la crypto cote 7 jours sur 7 ; décider seulement en semaine change-t-il quelque chose ?

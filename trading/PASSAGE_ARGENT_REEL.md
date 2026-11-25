@@ -6,14 +6,14 @@
 
 ## Feu vert seulement si TOUT est vrai
 
-| # | Condition | État au 24/11/2026 |
+| # | Condition | État au 25/11/2026 |
 |---|---|---|
-| 1 | Au moins 3 mois de simulation sans bug ni jour manqué non expliqué | ⏳ jour 13/90 |
+| 1 | Au moins 3 mois de simulation sans bug ni jour manqué non expliqué | ⏳ jour 14/90 |
 | 2 | Les ordres simulés correspondent à ce que le backtest aurait fait les mêmes jours | 🟢 semaines 1 et 2 conformes (écart 0,00 %) ; à revérifier chaque dimanche |
 | 3 | Les deux leçons « à tester ensuite » qui concernent le risque sont faites (univers sans biais, test glissant) | ✅ univers sans biais (14/11) + test glissant (15/11) |
 | 4 | L'utilisateur a choisi un montant qu'il accepte de voir baisser de 50 % sans paniquer | 🟢 par défaut : pilote de 500 € (18/11), modifiable |
 | 5 | Le coupe-circuit et les plafonds sont codés dans le module réel, et testés | 🟢 codés et testés en mode proposition (`live/`, 6 tests, 17/11) ; reste à les relire avant le premier euro |
-| 7 | Les deux comptes séparés (PEA / Kraken) sont simulés et le rééquilibrage par versements est testé | ⏳ point bloquant trouvé le 24/11 (leçon 49) |
+| 7 | Les deux comptes séparés (PEA / Kraken) sont simulés et le rééquilibrage par versements est testé | 🟡 simulé le 25/11 (leçon 50) : plus de gain, mais la part crypto dérive jusqu'à 86 % ; plafond à décider |
 | 6 | Source de cours fiable à l'heure d'exécution (bougie terminée) | 🟡 Yahoo fiable sur la valeur, pas sur l'heure ; ✅ robot fictif et module réel sur clôtures Kraken terminées, Yahoo en secours (18/11) |
 
 Date la plus proche réaliste : **mi-février 2027**.
