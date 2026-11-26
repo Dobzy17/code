@@ -267,12 +267,30 @@ puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne 
     du lundi au vendredi : +33,3 %, −48 %, 56 ordres ; une fois par semaine : +25,7 %. L'écart en faveur de la semaine est faible et
     probablement dû au hasard. **On garde la décision quotidienne**, mais une fois par semaine coûte cher : ne pas espacer.
 
+## 26 novembre 2026 — nuit (plafond crypto, positions COT, ETF dividendes)
+
+53. **Plafonner la crypto coûte du rendement, mais c'est une assurance que je recommande.** Montage à deux comptes, 2017-11 → aujourd'hui,
+    10 000 au départ, net de TOUS les impôts : sans plafond **56 513** (crypto jusqu'à 86 % du total) ; plafond 50 % **52 748** (−7 %) ;
+    40 % : 48 415 ; 30 % : 42 497. La perte max est la même partout (−36/−37 %), parce que la règle de tendance protège déjà des krachs de PRIX.
+    **Mais elle ne protège pas** d'une faillite de plateforme (FTX, 2022), d'un piratage ou d'une perte de parité du stablecoin (leçon 41) :
+    avec 77 % du patrimoine sur Kraken, ce risque devient énorme. **Proposition (en attente de ton accord) : plafond de 50 %**,
+    vérifié chaque janvier ; l'excédent est vendu en euros (imposé) et versé sur le PEA. C'est −7 % de gain historique pour diviser par environ 1,5 à 2
+    l'exposition à un risque qui ne se voit pas dans les backtests.
+54. **Hors marché — les positions extrêmes des spéculateurs (COT) ne donnent pas de signal exploitable.** Depuis 2000 : quand les spéculateurs
+    sont massivement acheteurs d'or (> 90/100), l'or a fait MIEUX ensuite (+8,4 % à 26 semaines contre +5,7 %), ce qui est l'inverse
+    de la lecture « à contre-courant ». Seul indice cohérent : vente massive sur le S&P 500 (< 10) → +4,3 % à 12 semaines contre +3,0 %
+    (76 % de cas positifs contre 68 %), mais il y a peu de cas indépendants. **Gardé comme information de la veille**, pas comme signal.
+55. **Bourse — les ETF dividendes ont tous fait moins bien que le S&P 500.** VIG −0,6 point par an, SCHD −1,1, DVY −1,9, HDV −2,4, NOBL −2,7.
+    Seul VIG a un peu limité la pire baisse (−47 % contre −55 %). DVY a fait pire (−63 %). En France, ils sont exclus du PEA et leurs dividendes sont imposés
+    chaque année : **écartés.** Un dividende n'est pas un « bonus » : c'est une partie de la valeur de l'action qu'on vous verse (et qu'on vous impose).
+
 ## À tester ensuite
 
 ### Bourse (actions, ETF)
+- Actions françaises et européennes en PEA : un ETF CAC 40 ou Europe contre un ETF monde, en euros, sur 20 ans. Faut-il un biais « maison » ?
+- Investir une somme d'un coup ou l'étaler sur 6 à 12 mois (DCA) : lequel rapporte le plus, historiquement, et à quel coût de regret ?
 - Dérive après résultats (PEAD) : les actions qui battent fortement les attentes continuent-elles à monter les semaines suivantes ?
   Utiliser le skill `pead-screener` du dépôt si la clé FMP gratuite le permet, sinon les données Yahoo.
-- Dividendes en croissance (skill `dividend-growth-pullback-screener`) contre un ETF dividendes (SCHD, VIG) : gagne-t-on quelque chose à choisir soi-même ?
 
 
 ### Radar de tous les marchés (où est l'argent en ce moment ?)
@@ -284,18 +302,16 @@ puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne 
 - L'or sur une période défavorable (1980-2001, or en baisse de plus de 60 %) avec des données de long terme : la conclusion de la leçon 34 tient-elle ?
 
 ### Informations hors marché (données alternatives)
+- Règle de Sahm appliquée au cœur DANS le PEA (arbitrage non imposé) avec l'ETF monde depuis 2008 et le S&P 500 depuis 1976 : confirmer
+  la leçon 51 sur un autre indice et chiffrer le nombre d'ordres.
 Règle : une information ne sert que si elle était CONNUE à la date de la décision (dates de publication réelles,
 pas les dates des chiffres révisés) et si elle améliore un test hors échantillon. Sinon, c'est du bruit déjà dans les prix.
-- Positions des gros spéculateurs (rapport CFTC COT, skill `cot-contrarian-detector`) : des positions extrêmes annoncent-elles
-  des retournements sur l'or, le pétrole, le S&P 500, le bitcoin ?
 - Activité réelle de Bitcoin (transactions, frais, hashrate via blockchain.info et mempool.space) : est-ce qu'elle précède le prix ?
 - Taux de la BCE et inflation en zone euro : effet sur l'euro/dollar et sur la valeur en euros du portefeuille.
 - Calendrier : réunions de la Fed et de la BCE, publications d'inflation (skill `economic-calendar-fetcher`) : volatilité
   anormale ces jours-là ? Faut-il éviter de passer des ordres juste avant ?
 
 ### Être opérationnel le jour du feu vert
-- Deux comptes : plafonner la part crypto à 40 % ou 50 % (vente de l'excédent en euros une fois par an, impôt de 30 % compris)
-  contre la laisser dériver. Quel compromis profit / risque après impôts ?
 - Deuxième source pour la clôture quotidienne de l'ETF monde (ou de l'ETF PEA en euros), pour éviter le retard de Yahoo.
 - Préparer la déclaration fiscale de fin d'année à partir du journal (formulaires 2086 et 3916-bis), sur les trades fictifs.
 
