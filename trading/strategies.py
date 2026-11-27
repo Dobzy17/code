@@ -1,0 +1,95 @@
+"""Stratégies simples, connues et documentées publiquement.
+
+Chaque stratégie renvoie un DataFrame de POIDS CIBLES (0 à 1 par actif, somme <= 1,
+le reste est en cash) décidés à la clôture du jour t. Le backtest les applique
+au jour t+1 : aucune information du futur n'est utilisée.
+
+On reste volontairement sur des règles robustes et peu nombreuses : plus une
+stratégie a de paramètres, plus elle risque de « coller » au passé (surapprentissage)
+et de s'effondrer en réel.
+"""
+from __future__ import annotations
+
+import pandas as pd
+
+
+def buy_hold(prices: pd.DataFrame) -> pd.DataFrame:
+    """Référence : tout acheter à poids égaux et ne rien faire."""
+    w = prices.notna().astype(float)
+    return w.div(w.sum(axis=1).replace(0, 1), axis=0)
+
+
+def trend_sma(prices: pd.DataFrame, window: int = 150) -> pd.DataFrame:
+    """Suivi de tendance : on détient un actif seulement s'il est au-dessus de sa
+    moyenne mobile ; sinon cette part reste en cash. Poids égaux entre actifs."""
+    sma = prices.rolling(window).mean()
+    on = (prices > sma).astype(float)
+    n_assets = prices.notna().sum(axis=1).clip(lower=1)
+    return on.div(n_assets, axis=0)
+
+
+def dual_momentum(prices: pd.DataFrame, risky: list[str], safe: str,
+                  lookback: int = 252) -> pd.DataFrame:
+    """Momentum dual (G. Antonacci) : chaque fin de mois, on prend l'actif risqué
+    qui a le plus monté sur 12 mois ; s'il n'a pas battu l'actif refuge
+    (obligations), on se réfugie dans l'actif refuge."""
+    mom = prices.pct_change(lookback)
+    month_end = prices.index.to_series().groupby(prices.index.to_period("M")).max()
+    w = pd.DataFrame(0.0, index=prices.index, columns=prices.columns)
+    current = None
+    for day in prices.index:
+        if day in month_end.values and mom.loc[day, risky].notna().all():
+            best = mom.loc[day, risky].idxmax()
+            current = best if mom.loc[day, best] > mom.loc[day, safe] else safe
+        if current is not None:
+            w.loc[day, current] = 1.0
+    return w
+
+
+STRATEGIES = {
+    "buy_hold": buy_hold,
+    "trend_sma": trend_sma,
+    "dual_momentum": dual_momentum,
+}
+
+
+def donchian_ensemble(prices: pd.DataFrame,
+                      lookbacks: tuple[int, ...] = (10, 20, 30, 60, 90, 150, 250, 360)) -> pd.DataFrame:
+    """Ensemble de cassures de Donchian (inspiré de Zarattini, Pagani & Barbon, 2025,
+    « Catching Crypto Trends ») : pour chaque durée L, on entre quand le cours fait
+    un plus haut de L jours, on sort quand il fait un plus bas de L/2 jours.
+    L'exposition est la moyenne des L signaux (0 à 1) : pas de réglage unique à « deviner »."""
+    out = pd.DataFrame(0.0, index=prices.index, columns=prices.columns)
+    for col in prices.columns:
+        s = prices[col]
+        votes = []
+        for L in lookbacks:
+            hi = s.rolling(L).max()
+            lo = s.rolling(max(L // 2, 2)).min()
+            state = pd.Series(float("nan"), index=s.index)
+            state[s >= hi] = 1.0
+            state[s <= lo] = 0.0
+            votes.append(state.ffill().fillna(0.0))
+        out[col] = pd.concat(votes, axis=1).mean(axis=1)
+    n = prices.notna().sum(axis=1).clip(lower=1)
+    return out.div(n, axis=0)
+
+
+def vol_target(weights: pd.DataFrame, prices: pd.DataFrame, target: float = 0.25,
+               window: int = 90, periods: int = 365) -> pd.DataFrame:
+    """Réduit chaque position quand l'actif devient très volatil (jamais d'effet de levier)."""
+    vol = prices.pct_change().rolling(window).std() * periods ** 0.5
+    scale = (target / vol).clip(upper=1.0).fillna(0.0)
+    return weights * scale
+
+
+def trend_band(prices: pd.DataFrame, window: int = 150, band: float = 0.0) -> pd.DataFrame:
+    """Comme trend_sma, avec une zone tampon : on achète si le cours dépasse la moyenne de `band`,
+    on vend s'il passe `band` en dessous ; entre les deux, on garde la position précédente."""
+    sma = prices.rolling(window).mean()
+    state = pd.DataFrame(float("nan"), index=prices.index, columns=prices.columns)
+    state[prices > sma * (1 + band)] = 1.0
+    state[prices < sma * (1 - band)] = 0.0
+    on = state.ffill().fillna(0.0)
+    n_assets = prices.notna().sum(axis=1).clip(lower=1)
+    return on.div(n_assets, axis=0)
