@@ -61,3 +61,34 @@ def clean_spikes(prices: pd.DataFrame, max_jump: float = 3.0) -> tuple[pd.DataFr
             p.loc[bad, col] = float("nan")
             p[col] = p[col].ffill()
     return p, fixed
+
+
+def yahoo_last_close(ticker: str, now: float | None = None, fetch=None) -> tuple[str, float] | None:
+    """Secours pour la DERNIÈRE clôture quand la ligne du jour de Yahoo est vide (leçon 58).
+    Utilise le cours de clôture des métadonnées du graphique, seulement si la séance est TERMINÉE
+    (séance du jour finie et cours pris à la clôture, ou dernier cours antérieur à l'ouverture du jour) : jamais un cours en cours de séance.
+    Renvoie (date AAAA-MM-JJ dans le fuseau de la bourse, prix) ou None."""
+    import datetime as _dt
+
+    import requests
+
+    if fetch is None:
+        def fetch(t):
+            r = requests.get(f"https://query1.finance.yahoo.com/v8/finance/chart/{t}", params={"range": "5d", "interval": "1d"},
+                             headers={"User-Agent": "Mozilla/5.0"}, timeout=20)
+            r.raise_for_status()
+            return r.json()
+    try:
+        meta = fetch(ticker)["chart"]["result"][0]["meta"]
+        reg = meta["currentTradingPeriod"]["regular"]
+        start, end = reg.get("start", reg["end"]), reg["end"]
+        t_last = meta["regularMarketTime"]
+        now = time.time() if now is None else now
+        today_done = now >= end and t_last >= end - 120          # séance du jour terminée, cours de clôture
+        previous_session = t_last < start and now < end          # séance du jour pas finie : le dernier cours est celui d'hier
+        if not (today_done or previous_session):
+            return None
+        tz = _dt.timezone(_dt.timedelta(seconds=meta.get("gmtoffset", 0)))
+        return _dt.datetime.fromtimestamp(t_last, tz).strftime("%Y-%m-%d"), float(meta["regularMarketPrice"])
+    except Exception:
+        return None

@@ -284,11 +284,27 @@ puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne 
     Seul VIG a un peu limité la pire baisse (−47 % contre −55 %). DVY a fait pire (−63 %). En France, ils sont exclus du PEA et leurs dividendes sont imposés
     chaque année : **écartés.** Un dividende n'est pas un « bonus » : c'est une partie de la valeur de l'action qu'on vous verse (et qu'on vous impose).
 
+## 27 novembre 2026 — nuit (d'un coup ou étalé, obligations en euros, source de clôture)
+
+56. **Bourse — placer une somme d'un coup bat l'étalement environ 7 fois sur 10.** S&P 500, chaque mois de départ depuis 1976 :
+    d'un coup contre étalé sur 12 mois : gagnant dans **72 %** des cas, avec un écart médian de +3,6 % à 1 an et +3,9 % à 5 ans. Sur 6 mois : 65 à 68 %, +1,8 à +2,0 %.
+    Le prix à payer, c'est le regret : le pire cas est −29 % pour un départ en mai 2008. **Pour toi, ça change peu** : on investit ce qu'on gagne chaque mois,
+    donc l'étalement se fait naturellement. Pour une grosse somme d'un coup, le choix rationnel est de tout placer, sauf si la peur du regret
+    risque de te faire tout vendre au pire moment.
+57. **Autres marchés — les obligations d'État en euros réduisent les pertes, mais coûtent environ 1 point de rendement par tranche de 10 %.**
+    En euros (CW8.PA, l'ETF Monde éligible PEA, + EUNH.DE) : 0 % d'obligations : +11,2 %/an depuis 2017, perte max −34 % ; 20 % : +9,0 %, −28 % ;
+    40 % : +6,7 %, −22 %. Le Sharpe ne s'améliore pas (0,77 → 0,73), et elles n'ont **pas** protégé en 2022 (−14 à −15 % pour tous).
+    En plus, ces ETF ne sont pas éligibles au PEA. **Pour maximiser le profit : 0 %.** L'or (leçon 34) diversifiait mieux sur la période testée.
+58. **Opérationnel — le « retard » de Yahoo était en partie une case vide, et parfois un jour férié.** Le 26/11 était Thanksgiving
+    (bourse américaine fermée) : ACWI n'était pas en retard. Pour CW8.PA, la ligne du 26/11 est vide, mais la clôture (683,79 €) figure dans les
+    métadonnées. Nouvelle fonction `yahoo_last_close` (4 cas testés) : elle récupère cette clôture seulement si la séance est terminée, jamais un cours
+    en cours de séance. **Proposition (en attente de ton accord) :** l'utiliser en secours dans le robot pour l'ETF, et suivre le cœur avec **CW8.PA en euros**
+    (l'ETF réel du futur PEA) plutôt qu'ACWI en dollars, en même temps que le passage aux deux comptes séparés.
+
 ## À tester ensuite
 
 ### Bourse (actions, ETF)
 - Actions françaises et européennes en PEA : un ETF CAC 40 ou Europe contre un ETF monde, en euros, sur 20 ans. Faut-il un biais « maison » ?
-- Investir une somme d'un coup ou l'étaler sur 6 à 12 mois (DCA) : lequel rapporte le plus, historiquement, et à quel coût de regret ?
 - Dérive après résultats (PEAD) : les actions qui battent fortement les attentes continuent-elles à monter les semaines suivantes ?
   Utiliser le skill `pead-screener` du dépôt si la clé FMP gratuite le permet, sinon les données Yahoo.
 
@@ -298,7 +314,7 @@ puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne 
   chacun avec la règle de tendance, et regarder ce qui s'est passé APRÈS les périodes où ils étaient « à la mode ».
 
 ### Autres marchés
-- Obligations d'État en euros (Bund, OAT) via ETF : quelle part dans le cœur pour réduire la perte max sans trop coûter (leçon 24) ?
+- L'or vu d'un investisseur en EUROS (or en euros, CW8.PA) depuis 2009 : la leçon 34 (calculée en dollars) tient-elle ?
 - L'or sur une période défavorable (1980-2001, or en baisse de plus de 60 %) avec des données de long terme : la conclusion de la leçon 34 tient-elle ?
 
 ### Informations hors marché (données alternatives)
@@ -312,7 +328,7 @@ pas les dates des chiffres révisés) et si elle améliore un test hors échanti
   anormale ces jours-là ? Faut-il éviter de passer des ordres juste avant ?
 
 ### Être opérationnel le jour du feu vert
-- Deuxième source pour la clôture quotidienne de l'ETF monde (ou de l'ETF PEA en euros), pour éviter le retard de Yahoo.
+- Calendrier des jours fériés (Bourse de New York et Euronext) : le robot doit savoir qu'un jour sans cours est normal, sans le compter comme une panne.
 - Préparer la déclaration fiscale de fin d'année à partir du journal (formulaires 2086 et 3916-bis), sur les trades fictifs.
 
 ### Crypto

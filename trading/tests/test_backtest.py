@@ -57,3 +57,21 @@ def test_paper_band_hysteresis():
     assert decide(102, 100, held=False) is False    # dans la zone, pas en position : on reste dehors
     assert decide(98, 100, held=True) is True       # dans la zone, en position : on garde
     assert decide(96, 100, held=True) is False      # sous −3 % : vente
+
+
+def test_yahoo_last_close_only_after_session_end():
+    from data import yahoo_last_close
+    end = 1_764_174_600                      # fin de séance fictive
+    js = lambda t: {"chart": {"result": [{"meta": {"currentTradingPeriod": {"regular": {"start": end - 30600, "end": end}},
+                                                   "regularMarketTime": end - 30, "regularMarketPrice": 683.79,
+                                                   "gmtoffset": 3600}}]}}
+    assert yahoo_last_close("CW8.PA", now=end + 3600, fetch=js)[1] == 683.79     # séance terminée : accepté
+    live = lambda t: {"chart": {"result": [{"meta": {"currentTradingPeriod": {"regular": {"start": end - 30600, "end": end}},
+                                                     "regularMarketTime": end - 4000, "regularMarketPrice": 690.0}}]}}
+    assert yahoo_last_close("CW8.PA", now=end - 3600, fetch=live) is None          # séance en cours : refusé
+    prev = lambda t: {"chart": {"result": [{"meta": {"currentTradingPeriod": {"regular": {"start": end - 30600, "end": end}},
+                                                     "regularMarketTime": end - 86400, "regularMarketPrice": 683.79}}]}}
+    assert yahoo_last_close("CW8.PA", now=end - 40000, fetch=prev)[1] == 683.79    # avant l'ouverture : clôture d'hier
+    stale = lambda t: {"chart": {"result": [{"meta": {"currentTradingPeriod": {"regular": {"start": end - 30600, "end": end}},
+                                                      "regularMarketTime": end - 7200, "regularMarketPrice": 1.0}}]}}
+    assert yahoo_last_close("CW8.PA", now=end + 3600, fetch=stale) is None        # séance finie mais cours pas de clôture : refusé
