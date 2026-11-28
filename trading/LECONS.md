@@ -301,10 +301,25 @@ puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne 
     en cours de séance. **Proposition (en attente de ton accord) :** l'utiliser en secours dans le robot pour l'ETF, et suivre le cœur avec **CW8.PA en euros**
     (l'ETF réel du futur PEA) plutôt qu'ACWI en dollars, en même temps que le passage aux deux comptes séparés.
 
+## 28 novembre 2026 — nuit (France et Europe contre Monde, or en euros, blockchain)
+
+59. **Bourse — privilégier la France ou l'Europe a coûté cher.** En euros, de fin 2009 à aujourd'hui : Monde (CW8, éligible PEA) **×7,12**,
+    Europe ×3,73, CAC 40 ×3,52. La différence est stable sur les deux périodes (2010-2017 : +12,0 % contre +7,2 % ; 2018+ : +11,9 % contre +7,8 %).
+    Même 30 % de CAC 40 coûte environ 1 point par an (×5,94). Le CAC 40 n'a même pas mieux résisté (perte max −38 % contre −34 %).
+    **Pas de biais « maison » : 100 % Monde dans le PEA.** Limite : le Monde, c'est environ 70 % d'actions américaines, et cette période leur a été très favorable.
+60. **Autres marchés — vu en euros, l'or reste une assurance, pas une source de profit garantie.** Avec 10 / 20 / 30 % d'or (Xetra-Gold) dans CW8,
+    la perte max baisse **à chaque fois** (−34 % → −31 / −28 / −25 %). Le rendement dépend de la période : il coûte en 2010-2017
+    (+12,0 % → +10,1 % avec 30 %, l'or ayant perdu 37 % de 2011 à 2013), mais il rapporte en 2018+ (+11,9 % → +12,8 %). La leçon 34 tient sur le risque,
+    pas sur le profit. **La proposition des 10 % d'or reste optionnelle** : à prendre si tu veux moins de grosses baisses, pas pour gagner plus.
+61. **Hors marché — l'activité de la blockchain Bitcoin n'annonce pas le prix de façon fiable.** Classés en 5 groupes selon leur variation sur 30 jours,
+    les deux extrêmes (forte baisse et forte hausse d'activité) sont suivis des MEILLEURS rendements, ce qui n'est pas exploitable.
+    Et l'effet s'inverse d'une période à l'autre pour la puissance de calcul (écart groupe 5 − groupe 1 à 90 jours : −13,9 % en 2016-2020, +10,6 % en 2021-2026).
+    (Les seuils des groupes sont calculés sur toute la période, ce qui flatte plutôt le signal : il est donc encore plus faible qu'il n'y paraît.)
+    **Gardé dans la veille comme information.** Aujourd'hui : transactions −19 % sur 30 jours, puissance de calcul −5 %.
+
 ## À tester ensuite
 
 ### Bourse (actions, ETF)
-- Actions françaises et européennes en PEA : un ETF CAC 40 ou Europe contre un ETF monde, en euros, sur 20 ans. Faut-il un biais « maison » ?
 - Dérive après résultats (PEAD) : les actions qui battent fortement les attentes continuent-elles à monter les semaines suivantes ?
   Utiliser le skill `pead-screener` du dépôt si la clé FMP gratuite le permet, sinon les données Yahoo.
 
@@ -314,15 +329,15 @@ puisque Kraken sera la plateforme d'exécution. Les règles de la stratégie ne 
   chacun avec la règle de tendance, et regarder ce qui s'est passé APRÈS les périodes où ils étaient « à la mode ».
 
 ### Autres marchés
-- L'or vu d'un investisseur en EUROS (or en euros, CW8.PA) depuis 2009 : la leçon 34 (calculée en dollars) tient-elle ?
 - L'or sur une période défavorable (1980-2001, or en baisse de plus de 60 %) avec des données de long terme : la conclusion de la leçon 34 tient-elle ?
 
 ### Informations hors marché (données alternatives)
+- Ventes et achats des dirigeants de leur propre entreprise (déclarations publiques SEC, formulaire 4) : les achats groupés de dirigeants
+  annoncent-ils une hausse ? Effet documenté (Lakonishok & Lee 2001) : vérifier s'il existe encore et s'il est exploitable via un ETF.
 - Règle de Sahm appliquée au cœur DANS le PEA (arbitrage non imposé) avec l'ETF monde depuis 2008 et le S&P 500 depuis 1976 : confirmer
   la leçon 51 sur un autre indice et chiffrer le nombre d'ordres.
 Règle : une information ne sert que si elle était CONNUE à la date de la décision (dates de publication réelles,
 pas les dates des chiffres révisés) et si elle améliore un test hors échantillon. Sinon, c'est du bruit déjà dans les prix.
-- Activité réelle de Bitcoin (transactions, frais, hashrate via blockchain.info et mempool.space) : est-ce qu'elle précède le prix ?
 - Taux de la BCE et inflation en zone euro : effet sur l'euro/dollar et sur la valeur en euros du portefeuille.
 - Calendrier : réunions de la Fed et de la BCE, publications d'inflation (skill `economic-calendar-fetcher`) : volatilité
   anormale ces jours-là ? Faut-il éviter de passer des ordres juste avant ?
